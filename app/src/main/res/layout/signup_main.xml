@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- caregiver+ icon-->
+    <ImageView
+        android:layout_width="42dp"
+        android:layout_height="47dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:clipToOutline="true"
+        android:background="@drawable/icon"/>
+    <!-- caregiver+ -->
+    <TextView
+        android:id="@+id/caregiver_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="30dp"
+        android:gravity="top"
+        android:text="@string/caregiver_"
+        android:textAppearance="@style/caregiver_mini" />
+
+    <!-- 간병인용 회원가입 -->
+    <Button
+        android:id="@+id/caregiver_signUp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="37dp"
+        android:layout_marginTop="294dp"
+        android:text="동행인용\n회원가입"
+        android:textStyle="bold"
+        android:src="@drawable/signup_button" />
+
+    <!-- 보호자용 회원가입 -->
+    <Button
+        android:id="@+id/parent_signUp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="221dp"
+        android:layout_marginTop="294dp"
+        android:text="보호자용\n회원가입"
+        android:textStyle="bold"
+        android:src="@drawable/signup_button" />
+
+
+
+
+</RelativeLayout>
