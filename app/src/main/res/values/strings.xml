@@ -2,5 +2,6 @@
     <string name="app_name">caregiver</string>
     <!--main screen caregiver+ -->
     <string name="caregiver_">CareGiver+</string>
-
+    <string name="find_password">비밀번호 찾기</string>
+    <string name="sign_up">회원가입</string>
 </resources>

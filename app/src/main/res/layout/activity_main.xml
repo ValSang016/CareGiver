@@ -8,8 +8,6 @@
     tools:context=".MainActivity">
 
     <!-- CareGiver+ icon -->
-
-
     <ImageView
         android:id="@+id/frame"
         android:layout_width="68dp"
@@ -34,6 +32,7 @@
         android:text="@string/caregiver_"
         android:textAppearance="@style/caregiver_" />
 
+    <!-- 로그인 버튼 -->
     <Button
         android:id="@+id/login_button"
         android:layout_width="284dp"
@@ -46,5 +45,34 @@
         android:text="로그인"
         android:textSize="20dp"
         android:elevation="4dp" />
+
+    <!-- 비번찾기 -->
+
+
+    <Button
+        android:id="@+id/find_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="101dp"
+        android:layout_marginTop="460dp"
+        android:background="#FFFFFF"
+        android:text="@string/find_password"
+        android:textAlignment="center"
+        android:textAppearance="@style/find_password" />
+    <!-- 회원가입 -->
+    <Button
+        android:id="@+id/some_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="231dp"
+        android:layout_marginTop="459dp"
+        android:background="#FFFFFF"
+        android:text="@string/sign_up"
+        android:textAlignment="center"
+        android:textAppearance="@style/sign_up" />
 
 </RelativeLayout>
