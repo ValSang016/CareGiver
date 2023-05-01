@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">caregiver</string>
+    <!--main screen caregiver+ -->
+    <string name="caregiver_">CareGiver+</string>
+
 </resources>
