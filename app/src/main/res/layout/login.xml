@@ -65,7 +65,7 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/뒤로가기"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -75,3 +75,5 @@
         android:background="#000000"
         android:textColor="#ffffff"
         android:text="로그인" />
+
+</RelativeLayout>

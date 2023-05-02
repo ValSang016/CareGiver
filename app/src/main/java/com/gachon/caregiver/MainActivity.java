@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         login_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -28,16 +28,16 @@ public class MainActivity extends AppCompatActivity {
         find_pw.setOnClickListener(new View.OnClickListener(){ //비밀번호 찾기 하는 곳
             @Override
            public void onClick(View View){
-               Intent intent = new Intent(getApplicationContext(),);
-               startActivity(intent);
+//               Intent intent = new Intent(getApplicationContext(),);
+//               startActivity(intent);
            }
         });
 
         some_id.setOnClickListener(new View.OnClickListener(){//비밀번호 찾기 하는 곳
             @Override
             public void onClick(View View){
-                Intent intent = new Intent(getApplicationContext(),);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(),);
+//                startActivity(intent);
             }
         });
     }
