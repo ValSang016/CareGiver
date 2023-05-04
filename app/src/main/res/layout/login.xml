@@ -65,7 +65,7 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/backButton"
+        android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -75,4 +75,16 @@
         android:background="#000000"
         android:textColor="#ffffff"
         android:text="로그인" />
+
+    <Button
+        android:id="@+id/Back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="305dp"
+        android:layout_marginBottom="18dp"
+        android:background="#000000"
+        android:text="Back"
+        android:textColor="#ffffff" />
 </RelativeLayout>
