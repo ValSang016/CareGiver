@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+
 public class MainActivity extends AppCompatActivity {
+
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +22,12 @@ public class MainActivity extends AppCompatActivity {
         Button find_pw = findViewById(R.id.find_password);//비밀번호 찾기 연결
         Button some_id = findViewById(R.id.some_id); //회원가입 버튼 연결
 
+
         login_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
             }
         });
 
