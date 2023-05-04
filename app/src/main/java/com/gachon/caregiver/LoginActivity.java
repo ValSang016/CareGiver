@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login); //로그인 하는 창 등장
 
-        Button lgbutton = findViewById(R.id.loginButton);
+        Button lgbutton = findViewById(R.id.login_button);
 
         lgbutton.setOnClickListener(new View.OnClickListener() {
             @Override

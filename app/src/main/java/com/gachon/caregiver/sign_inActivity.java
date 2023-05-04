@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class sign_inActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.); //로그인 하는 창 등장
+        setContentView(R.layout.login); //로그인 하는 창 등장
 
         Button companion = (Button) findViewById();
         Button Patient = (Button) findViewById();
@@ -18,7 +18,7 @@ public class sign_inActivity extends AppCompatActivity {
         companion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_login = new Intent(getApplicationContext(), Sign_in_companion.class);
+                Intent intent_login = new Intent(getApplicationContext(), Sign_up_companion.class);
                 startActivity(intent_login);
             }
         });
@@ -26,7 +26,7 @@ public class sign_inActivity extends AppCompatActivity {
         Patient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_login = new Intent(getApplicationContext(), Sign_in_patient.class);
+                Intent intent_login = new Intent(getApplicationContext(), Sign_up_patient.class);
                 startActivity(intent_login);
             }
         });
