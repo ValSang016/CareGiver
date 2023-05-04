@@ -9,15 +9,14 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/frame"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="42dp"
+        android:layout_height="47dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/icon"
-        android:clipToOutline="true" />
+        android:clipToOutline="true"
+        android:background="@drawable/icon"/>
 
     <!-- CareGiver+ -->
     <TextView
@@ -87,4 +86,5 @@
         android:background="#000000"
         android:text="Back"
         android:textColor="#ffffff" />
+
 </RelativeLayout>
