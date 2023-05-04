@@ -75,5 +75,4 @@
         android:background="#000000"
         android:textColor="#ffffff"
         android:text="로그인" />
-
 </RelativeLayout>
