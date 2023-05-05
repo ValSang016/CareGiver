@@ -35,7 +35,7 @@
 
 
     <EditText
-        android:id="@+id/login"
+        android:id="@+id/Login_idData"
         android:layout_width="300dp"
         android:layout_height="54dp"
         android:layout_alignParentLeft="true"
@@ -50,7 +50,7 @@
 
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/Login_passwordData"
         android:layout_width="300dp"
         android:layout_height="54dp"
         android:layout_alignParentLeft="true"
@@ -64,7 +64,7 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/Login_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -76,7 +76,7 @@
         android:text="로그인" />
 
     <Button
-        android:id="@+id/Back_button"
+        android:id="@+id/Login_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

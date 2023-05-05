@@ -1,4 +1,4 @@
-package com.gachon.caregiver;
+package com.gachon.caregiver.userInform.signUpPage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class sign_inActivity extends AppCompatActivity {
+import com.gachon.caregiver.R;
+
+public class SignUpPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login); //로그인 하는 창 등장
@@ -18,7 +20,7 @@ public class sign_inActivity extends AppCompatActivity {
         companion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_login = new Intent(getApplicationContext(), Sign_up_companion.class);
+                Intent intent_login = new Intent(getApplicationContext(), SignUpPage_companion.class);
                 startActivity(intent_login);
             }
         });
@@ -26,7 +28,7 @@ public class sign_inActivity extends AppCompatActivity {
         Patient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_login = new Intent(getApplicationContext(), Sign_up_patient.class);
+                Intent intent_login = new Intent(getApplicationContext(), SignUpPage_patient.class);
                 startActivity(intent_login);
             }
         });

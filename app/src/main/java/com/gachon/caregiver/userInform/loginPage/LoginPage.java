@@ -1,4 +1,4 @@
-package com.gachon.caregiver;
+package com.gachon.caregiver.userInform.loginPage;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,21 +8,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.gachon.caregiver.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginPage extends AppCompatActivity {
 
     RequestQueue queue = Volley.newRequestQueue(this);
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login); //로그인 하는 창 등장
 
-        Button lgbutton = findViewById(R.id.login_button);
+        Button loginBtn = findViewById(R.id.Login_login_button);
+        Button backBtn = findViewById(R.id.Login_back_button);
 
-        lgbutton.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Add the request to the RequestQueue.
-//                queue.add(stringRequest);
+
             }
         });
     }
