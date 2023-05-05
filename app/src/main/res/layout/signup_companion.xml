@@ -94,6 +94,8 @@
         android:textAppearance="@style/caregiver_mini"
         android:textSize="10sp" />
 
+    <!-- 생년월일 작성 -->
+
     <EditText
         android:id="@+id/birth"
         android:layout_width="142dp"
@@ -108,7 +110,7 @@
         android:textAlignment="center"
         android:textSize="20dp" />
 
-
+    <!-- 아이디 만들기 -->
 
     <EditText
         android:id="@+id/id_write"
@@ -126,6 +128,8 @@
         android:textAlignment="center"
         android:textSize="20dp" />
 
+    <!-- 중복 확인 버튼 -->
+
     <Button
         android:layout_width="65dp"
         android:layout_height="50dp"
@@ -137,6 +141,8 @@
         android:text="중복\n확인"
         android:textSize="11sp"
         android:textStyle="bold" />
+
+    <!-- 비밀번호 만들기 -->
 
     <EditText
         android:id="@+id/password_write"
@@ -154,6 +160,8 @@
         android:textAlignment="center"
         android:textSize="15sp" />
 
+    <!-- 비밀번호 재확인 -->
+
     <EditText
         android:id="@+id/password_ok"
         android:layout_width="351dp"
@@ -169,6 +177,8 @@
         android:hint="비 밀 번 호 재입력"
         android:textAlignment="center"
         android:textSize="15sp" />
+
+    <!-- 전화번호 입력 -->
 
     <EditText
         android:id="@+id/phonenumber_write"
@@ -186,6 +196,8 @@
         android:textAlignment="center"
         android:textSize="15sp" />
 
+    <!-- 인증 확인 버튼 -->
+
     <Button
         android:layout_width="65dp"
         android:layout_height="50dp"
@@ -198,6 +210,8 @@
         android:text="인증"
         android:textSize="11sp"
         android:textStyle="bold" />
+
+    <!-- 사진 선택 버튼 -->
 
     <Button
         android:id="@+id/btn_UploadPicture"
@@ -214,19 +228,6 @@
         android:textSize="15sp" />
 
 
-    <!-- 생년월일 작성 -->
-
-    <!-- 아이디 만들기 -->
-    <!-- 중복 확인 버튼 -->
-
-    <!-- 비밀번호 만들기 -->
-
-    <!-- 비밀번호 재확인 -->
-
-    <!-- 전화번호 입력 -->
-
-    <!-- 중복 확인 버튼 -->
-
     <!-- 다음 버튼 -->
     <Button
         android:layout_width="100dp"
@@ -241,6 +242,31 @@
         android:textSize="20dp" />
 
 
+    <!-- 남자 체크 박스 -->
+
+    <CheckBox
+        android:id="@+id/ckkmale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="460dp"
+        android:text="남자"
+        android:textStyle="bold" />
+
+    <!-- 여자 체크 박스 -->
+
+    <CheckBox
+        android:id="@+id/ckkfemale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="460dp"
+        android:text="여자"
+        android:textStyle="bold" />
 
 </RelativeLayout>
 
