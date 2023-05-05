@@ -108,6 +108,8 @@
         android:textAlignment="center"
         android:textSize="20dp" />
 
+
+
     <EditText
         android:id="@+id/id_write"
         android:layout_width="276dp"
@@ -237,6 +239,8 @@
         android:elevation="4dp"
         android:text="다 음"
         android:textSize="20dp" />
+
+
 
 </RelativeLayout>
 
