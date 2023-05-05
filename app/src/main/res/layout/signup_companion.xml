@@ -32,7 +32,7 @@
 
 
     <ImageView
-
+        tools:ignore="SpeakableTextPresentCheck"
         android:id="@+id/user_image"
         android:layout_width="160dp"
         android:layout_height="160dp"
@@ -64,27 +64,26 @@
 
     <!-- 사진 선택 버튼 -->
 
-    <Button
+    <!-- 이름 작성 -->
 
+    <Button
         android:id="@+id/btn_UploadPicture"
-        android:layout_width="162dp"
-        android:layout_height="27dp"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginEnd="206dp"
-        android:layout_marginBottom="396dp"
+        android:layout_marginEnd="208dp"
+        android:layout_marginBottom="370dp"
         android:background="@drawable/stroke"
         android:onClick="onClick"
         android:text="사진 선택"
         android:textSize="15sp" />
 
-    <!-- 이름 작성 -->
-
     <EditText
         android:id="@+id/name"
         android:layout_width="142dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="240dp"
@@ -96,6 +95,8 @@
         android:textSize="20dp" />
 
 
+    <!-- 생년월일 작성 -->
+
     <TextView
         android:id="@+id/caregiver_"
         android:layout_width="wrap_content"
@@ -103,24 +104,22 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginLeft="292dp"
-        android:layout_marginTop="186dp"
+        android:layout_marginLeft="290dp"
+        android:layout_marginTop="202dp"
         android:layout_marginEnd="82dp"
         android:gravity="top"
         android:text="실명 입력"
         android:textAppearance="@style/caregiver_mini"
-        android:textSize="10dp" />
-
-    <!-- 생년월일 작성 -->
+        android:textSize="10sp" />
 
     <EditText
         android:id="@+id/birth"
         android:layout_width="142dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="240dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="232dp"
         android:background="@drawable/stroke"
         android:elevation="4dp"
         android:hint="생 년 월 일"
