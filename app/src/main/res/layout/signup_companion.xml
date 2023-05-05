@@ -246,38 +246,40 @@
 
     <RadioGroup
         android:id="@+id/ckkmale"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_width="170dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="446dp"
+        android:orientation="horizontal">
 
 
         <RadioButton
-        android:id="@+id/female"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="461dp"
-        android:text="여자"
-        android:textStyle="bold">
-        android:la
-    </RadioButton>
+            android:id="@+id/female"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="461dp"
+            android:text="여자"
+            android:textStyle="bold">
+
+        </RadioButton>
 
 
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="455dp"
+            android:text="남자"
+            android:textStyle="bold">
 
-    <RadioButton
-        android:id="@+id/male"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="109dp"
-        android:layout_marginBottom="455dp"
-        android:text="남자"
-        android:textStyle="bold">
-
-    </RadioButton>
+        </RadioButton>
 
     </RadioGroup>
 
