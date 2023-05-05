@@ -32,20 +32,19 @@
 
 
     <ImageView
-        tools:ignore="SpeakableTextPresentCheck"
         android:id="@+id/user_image"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="208dp"
-        android:layout_marginBottom="424dp"
+        android:layout_marginEnd="207dp"
+        android:layout_marginBottom="434dp"
         android:adjustViewBounds="true"
         android:maxWidth="200dp"
         android:maxHeight="200dp"
         android:onClick="onClick"
-        android:src="@drawable/signup_button" />
-
+        android:src="@drawable/signup_button"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
 
@@ -55,8 +54,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginEnd="236dp"
-        android:layout_marginBottom="449dp"
+        android:layout_marginEnd="235dp"
+        android:layout_marginBottom="459dp"
         android:adjustViewBounds="true"
         android:background="@drawable/img"
         android:maxWidth="200dp"
@@ -126,8 +125,33 @@
         android:textAlignment="center"
         android:textSize="20dp" />
 
-    <!-- 남성 여성 선택 체크 박스  -->
-
+    <!-- 아이디 만들기 -->
+    <EditText
+        android:id="@+id/id_write"
+        android:layout_width="276dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="391dp"
+        android:background="@drawable/stroke"
+        android:elevation="4dp"
+        android:hint="아 이 디"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+    <!-- 중복 확인 버튼 -->
+    <Button
+        android:background="@drawable/stroke"
+        android:layout_width="65dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/id_write"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:elevation="4dp"
+        android:text="중복\n확인"
+        android:textSize="11sp"/>
 
 
 </RelativeLayout>
