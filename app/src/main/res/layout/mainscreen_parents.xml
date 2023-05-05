@@ -30,7 +30,7 @@
     <!-- 캘린더 버튼 -->
 
     <Button
-        android:id="@+id/callender"
+        android:id="@+id/callendar"
         android:layout_width="338dp"
         android:layout_height="175dp"
         android:layout_alignParentStart="true"
