@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button login_bt = findViewById(R.id.login_button);//로그인 버튼 연결
-        Button find_pw = findViewById(R.id.find_password);//비밀번호 찾기 연결
-        Button some_id = findViewById(R.id.some_id); //회원가입 버튼 연결
+        Button login_bt = findViewById(R.id.main_login_button);//로그인 버튼 연결
+        Button find_pw = findViewById(R.id.Main_findPw_button);//비밀번호 찾기 연결
+        Button some_id = findViewById(R.id.Main_signUp_button); //회원가입 버튼 연결
 
 
         login_bt.setOnClickListener(new View.OnClickListener() {

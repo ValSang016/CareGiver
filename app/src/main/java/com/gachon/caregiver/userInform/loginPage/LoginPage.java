@@ -92,6 +92,10 @@ public class LoginPage extends AppCompatActivity {
                             J_JsonArray = response.getJSONArray("results");
                             JSONObject dataObj = J_JsonArray.getJSONObject(0);
 
+                            String name = null; //여기에다가 이름을 받아온다 만약 비밀번호가 틀렸으면 1 아이디가 틀렸으면 2 등록이된것이 아니라면 3을 수신하게 한다
+
+
+
                            
                         } catch(JSONException e) {
                             e.printStackTrace();
