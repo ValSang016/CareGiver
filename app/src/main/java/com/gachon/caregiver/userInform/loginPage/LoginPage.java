@@ -2,6 +2,7 @@ package com.gachon.caregiver.userInform.loginPage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,167 +34,95 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class LoginPage extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class LoginPage extends AppCompatActivity {
 
-        SignInButton Google_Login;
-        private static final int RC_SIGN_IN = 1000;
-        private FirebaseAuth mAuth;
-        private GoogleApiClient mGoogleApiClient;
+    SignInButton Google_Login;
+    private static final int RC_SIGN_IN = 1000;
+    private FirebaseAuth mAuth;
+    private GoogleApiClient mGoogleApiClient;
 
-        Button loginBtn = findViewById(R.id.Login_login_button);
-        Button backBtn = findViewById(R.id.Login_back_button);
+    Button loginBtn = findViewById(R.id.Login_login_button);
+    Button backBtn = findViewById(R.id.Login_back_button);
 
-        EditText editTextID = findViewById(R.id.Login_idData);
-        EditText editTextPW = findViewById(R.id.Login_passwordData);
+    EditText editTextID = findViewById(R.id.Login_idData);
+    EditText editTextPW = findViewById(R.id.Login_passwordData);
 
-        String ID;
-        String PW;
-        //Context mContext;
+    String ID;
+    String PW;
+    //Context mContext;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.login);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login);
 
-//            init();
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            loginBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                ID = editTextID.getText().toString();
+                PW = editTextPW.getText().toString();
 
-                    ID = editTextID.getText().toString();
-                    PW = editTextPW.getText().toString();
-                    requestLogin(ID, PW);
-
+                JSONObject requsetJsonObject = new JSONObject();
+                try {
+                    requsetJsonObject.put("id", ID);
+                    requsetJsonObject.put("password", PW);
                 }
-            });
-
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build();
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this, this)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
-                    .build();
-
-            mAuth = FirebaseAuth.getInstance();
-
-            Google_Login.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                    startActivityForResult(signInIntent,RC_SIGN_IN);
+                catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
-        }
 
-//        public void init(){
-//            editTextID = (EditText)findViewById(R.id.);
-//            editTextPW = (EditText)findViewById(R.id.editTextPW);
-//            loginBtn = (Button)findViewById(R.id.activity_login_login_button);
-//            Google_Login = (SignInButton)findViewById(R.id.Google_Login);
-//            //mContext = getApplicationContext();
-//        }
+                RequestQueue requestQueue = v.getInstance(this).getRequestQueue();
+                // 이위까지 보내는 것을 모두 완료한 상태이다. 즉 id pw를 이제 volley를 통해 nodejs로 보낸 것이다.
+                JsonObjectRequest R_Object = new JsonObjectRequest(Request.Method.POST,"http://172.19.83.10:3000/receiv", requsetJsonObject, new Response.Listener() {
+                    @Override
+                    public void onResponse(Object response) {
+                        
+                    }
 
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode == RC_SIGN_IN) {
-                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                if (result.isSuccess()) {
-                    //구글 로그인 성공해서 파베에 인증
-                    GoogleSignInAccount account = result.getSignInAccount();
-                    firebaseAuthWithGoogle(account);
-                }
-                else{
-                    //구글 로그인 실패
-                }
-            }
-        }
-        private void firebaseAuthWithGoogle(GoogleSignInAccount acct){
-            AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(),null);
-            mAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(LoginActivity.this, "인증 실패", Toast.LENGTH_SHORT).show();
-
-                            }else{
-                                Toast.makeText(LoginActivity.this, "구글 로그인 인증 성공", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), EnrollActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-                    });
-        }
-
-        @Override
-        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-        }
-
-        public void requestLogin(String ID, String PW){
-            String url = "http://172.19.83.10:3000";
-
-            //JSON형식으로 데이터 통신을 진행합니다!
-            JSONObject testjson = new JSONObject();
-            try {
-                //입력해둔 edittext의 id와 pw값을 받아와 put해줍니다 : 데이터를 json형식으로 바꿔 넣어주었습니다.
-                testjson.put("id", ID);
-                testjson.put("password", PW);
-                String jsonString = testjson.toString(); //완성된 json 포맷
-
-                //이제 전송해볼까요?
-                final RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
-                final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url,testjson, new Response.Listener<JSONObject>() {
-
-                    //데이터 전달을 끝내고 이제 그 응답을 받을 차례입니다.
                     @Override
                     public void onResponse(JSONObject response) {
+                        JSONArray J_JsonArray = new JSONArray();
                         try {
-                            //받은 json형식의 응답을 받아
-                            JSONObject jsonObject = new JSONObject(response.toString());
+                            J_JsonArray = response.getJSONArray("results");
+                            JSONObject dataObj = J_JsonArray.getJSONObject(0);
 
-                            //key값에 따라 value값을 쪼개 받아옵니다.
-                            String resultId = jsonObject.getString("approve_id");
-                            String resultPassword = jsonObject.getString("approve_pw");
+                            String name = null; //여기에다가 이름을 받아온다 만약 비밀번호가 틀렸으면 1 아이디가 틀렸으면 2 등록이된것이 아니라면 3을 수신하게 한다
 
-                            if(resultId.equals("OK") & resultPassword.equals("OK")){
-                                Toast.makeText(getApplicationContext(),"로그인 성공",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }else{
-                                easyToast("로그인 실패");
-                            }
 
-                        } catch (Exception e) {
+
+                           
+                        } catch(JSONException e) {
                             e.printStackTrace();
                         }
+
                     }
-                    //서버로 데이터 전달 및 응답 받기에 실패한 경우 아래 코드가 실행됩니다.
-                }, new Response.ErrorListener() {
+                    
+                }, new Response.ErrorListener() { //수신에서 에러가 난 경우에만 작동하는 코드이다 즉 돌아가면 ㅈ대는 거다
+
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
+                        Toast.makeText(this, "네트워크 연결 오류.", Toast.LENGTH_LONG).show();
+                        Log.i("VolleyError", "Volley Error in receiv");
                     }
                 });
-                jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                requestQueue.add(jsonObjectRequest);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+                requestQueue.add(R_Object);
             }
-        }
+        });
 
-        void easyToast(String str){
-            Toast.makeText(getApplicationContext(),str,Toast.LENGTH_SHORT).show();
-        }
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent_back = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent_back);
+            }
+        });
+
+
     }
+}
