@@ -15,6 +15,24 @@
         android:theme="@style/Theme.Caregiver"
         tools:targetApi="31">
         <activity
+            android:name=".userInform.signUpPage.SignUpPage_patient"
+            android:exported="true"/>
+        <activity
+            android:name=".userInform.signUpPage.SignUpPage_companion"
+            android:exported="true"/>
+        <activity
+            android:name=".userInform.signUpPage.SignUpPage"
+            android:exported="true"/>
+        <activity
+            android:name=".userInform.loginPage.LoginPage"
+            android:exported="true"/>
+        <activity
+            android:name=".userInform.find_pw"
+            android:exported="true"/>
+        <activity
+            android:name=".companion_main"
+            android:exported="true"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"

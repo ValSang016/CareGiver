@@ -6,33 +6,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.gachon.caregiver.MainActivity;
 import com.gachon.caregiver.R;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,7 +62,7 @@ public class LoginPage extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                RequestQueue requestQueue = v.getInstance(this).getRequestQueue();
+//                RequestQueue requestQueue = v.getInstance(this).getRequestQueue();
                 // 이위까지 보내는 것을 모두 완료한 상태이다. 즉 id pw를 이제 volley를 통해 nodejs로 보낸 것이다.
                 JsonObjectRequest R_Object = new JsonObjectRequest(Request.Method.POST,"http://172.19.83.10:3000/receiv", requsetJsonObject, new Response.Listener() {
                     @Override
@@ -85,7 +70,6 @@ public class LoginPage extends AppCompatActivity {
                         
                     }
 
-                    @Override
                     public void onResponse(JSONObject response) {
                         JSONArray J_JsonArray = new JSONArray();
                         try {
@@ -103,11 +87,11 @@ public class LoginPage extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(this, "네트워크 연결 오류.", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(this, "네트워크 연결 오류.", Toast.LENGTH_LONG).show();
                         Log.i("VolleyError", "Volley Error in receiv");
                     }
                 });
-                requestQueue.add(R_Object);
+//                requestQueue.add(R_Object);
             }
         });
 

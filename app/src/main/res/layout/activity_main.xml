@@ -34,7 +34,7 @@
 
     <!-- 로그인 버튼 -->
     <Button
-        android:id="@+id/main_login_button"
+        android:id="@+id/Main_login_button"
         android:layout_width="284dp"
         android:layout_height="54dp"
         android:layout_alignParentLeft="true"
