@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!--지도-->
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="${GOOGLE_MAPS_API_KEY}" />
+<!--    <meta-data-->
+<!--        android:name="com.google.android.geo.API_KEY"-->
+<!--        android:value="${GOOGLE_MAPS_API_KEY}" />-->
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
