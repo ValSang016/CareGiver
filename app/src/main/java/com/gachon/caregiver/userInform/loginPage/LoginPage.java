@@ -77,15 +77,11 @@ public class LoginPage extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                RequestQueue requestQueue = v.getInstance(this).getRequestQueue();
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 // 이위까지 보내는 것을 모두 완료한 상태이다. 즉 id pw를 이제 volley를 통해 nodejs로 보낸 것이다.
-                JsonObjectRequest R_Object = new JsonObjectRequest(Request.Method.POST,"http://172.19.83.10:3000/receiv", requsetJsonObject, new Response.Listener() {
-                    @Override
-                    public void onResponse(Object response) {
-                        
-                    }
+                JsonObjectRequest R_Object = new JsonObjectRequest(Request.Method.POST,"http://172.19.83.10:3000/receiv", requsetJsonObject, new Response.Listener<JSONObject>() {
 
-                    @Override
+
                     public void onResponse(JSONObject response) {
                         JSONArray J_JsonArray = new JSONArray();
                         try {
@@ -107,7 +103,7 @@ public class LoginPage extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(this, "네트워크 연결 오류.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "네트워크 연결 오류.", Toast.LENGTH_LONG).show();
                         Log.i("VolleyError", "Volley Error in receiv");
                     }
                 });
