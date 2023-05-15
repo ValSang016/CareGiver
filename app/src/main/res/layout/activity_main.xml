@@ -61,7 +61,6 @@
         android:text="@string/find_password"
         android:textAlignment="center"
         android:textAppearance="@style/find_password" />
-
     <!-- 회원가입 -->
     <Button
         android:id="@+id/Main_signUp_button"
