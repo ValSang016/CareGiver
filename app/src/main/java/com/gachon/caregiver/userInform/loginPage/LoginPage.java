@@ -77,15 +77,13 @@ public class LoginPage extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                RequestQueue requestQueue = v.getInstance(this).getRequestQueue();
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 // 이위까지 보내는 것을 모두 완료한 상태이다. 즉 id pw를 이제 volley를 통해 nodejs로 보낸 것이다.
-                JsonObjectRequest R_Object = new JsonObjectRequest(Request.Method.POST,"http://172.19.83.10:3000/receiv", requsetJsonObject, new Response.Listener() {
-                    @Override
-                    public void onResponse(Object response) {
-                        
-                    }
 
-                    @Override
+                JsonObjectRequest R_Object = new JsonObjectRequest(Request.Method.POST,"http://172.19.83.10:3000/receiv", requsetJsonObject, new Response.Listener<JSONObject>() {
+
+
+
                     public void onResponse(JSONObject response) {
                         JSONArray J_JsonArray = new JSONArray();
                         try {
@@ -95,20 +93,18 @@ public class LoginPage extends AppCompatActivity {
                             String name = null; //여기에다가 이름을 받아온다 만약 비밀번호가 틀렸으면 1 아이디가 틀렸으면 2 등록이된것이 아니라면 3을 수신하게 한다
 
 
-
-                           
                         } catch(JSONException e) {
                             e.printStackTrace();
                         }
 
                     }
-                    
+
                 }, new Response.ErrorListener() { //수신에서 에러가 난 경우에만 작동하는 코드이다 즉 돌아가면 ㅈ대는 거다
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(this, "네트워크 연결 오류.", Toast.LENGTH_LONG).show();
-                        Log.i("VolleyError", "Volley Error in receiv");
+                        Toast.makeText(getApplicationContext(), "네트워크 연결 오류.", Toast.LENGTH_LONG).show();
+                        Log.e("VolleyError", "Volley Error in receive");
                     }
                 });
                 requestQueue.add(R_Object);
