@@ -8,10 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,19 +18,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.gachon.caregiver.MainActivity;
 import com.gachon.caregiver.R;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,17 +28,11 @@ import org.json.JSONObject;
 
 
 public class LoginPage extends AppCompatActivity {
-
     SignInButton Google_Login;
     private static final int RC_SIGN_IN = 1000;
     private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
 
-    Button loginBtn = findViewById(R.id.Login_login_button);
-    Button backBtn = findViewById(R.id.Login_back_button);
-
-    EditText editTextID = findViewById(R.id.Login_idData);
-    EditText editTextPW = findViewById(R.id.Login_passwordData);
 
     String ID;
     String PW;
@@ -59,7 +41,13 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.login_class);
+
+        Button loginBtn = findViewById(R.id.Login_login_button);
+        Button backBtn = findViewById(R.id.Login_back_button);
+
+        EditText editTextID = findViewById(R.id.Login_idData);
+        EditText editTextPW = findViewById(R.id.Login_passwordData);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,13 +80,11 @@ public class LoginPage extends AppCompatActivity {
 
 
 
-                           
+
                         } catch(JSONException e) {
                             e.printStackTrace();
-                        }
+                        }   }
 
-                    }
-                    
                 }, new Response.ErrorListener() { //수신에서 에러가 난 경우에만 작동하는 코드이다 즉 돌아가면 ㅈ대는 거다
 
                     @Override
@@ -122,3 +108,5 @@ public class LoginPage extends AppCompatActivity {
 
     }
 }
+
+

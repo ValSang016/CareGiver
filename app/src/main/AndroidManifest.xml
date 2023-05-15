@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!--지도-->
-
+<!--    <meta-data-->
+<!--        android:name="com.google.android.geo.API_KEY"-->
+<!--        android:value="${GOOGLE_MAPS_API_KEY}" />-->
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
@@ -26,7 +28,8 @@
             android:exported="false"/>
         <activity
             android:name=".userInform.loginPage.LoginPage"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".userInform.find_pw"
             android:exported="false"/>
