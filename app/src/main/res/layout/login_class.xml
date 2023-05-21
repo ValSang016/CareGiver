@@ -75,6 +75,8 @@
         android:textColor="#ffffff"
         android:text="로그인" />
 
+    <!--Back 버튼 -->
+
     <Button
         android:id="@+id/Login_back_button"
         android:layout_width="wrap_content"
