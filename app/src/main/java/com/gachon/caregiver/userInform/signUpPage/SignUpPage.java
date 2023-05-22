@@ -11,7 +11,7 @@ import com.gachon.caregiver.R;
 public class SignUpPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup_main); //로그인 하는 창 등장
+        setContentView(R.layout.signup_main); //회원가입 하는 창 등장
 
         Button companion = (Button) findViewById(R.id.caregiver_signUp);
         Button Patient = (Button) findViewById(R.id.parent_signUp);

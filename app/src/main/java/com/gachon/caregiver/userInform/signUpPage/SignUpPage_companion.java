@@ -23,6 +23,7 @@ public class SignUpPage_companion extends AppCompatActivity {
             public void onClick(View view) {
                 Intent login = new Intent(getApplicationContext(), LoginPage.class);
                 startActivity(login);
+
             }
         });
 
