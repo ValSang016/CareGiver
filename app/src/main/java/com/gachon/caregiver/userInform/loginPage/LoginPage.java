@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import com.gachon.caregiver.MainActivity;
 import com.gachon.caregiver.R;
 import com.gachon.caregiver.companion_main;
+import com.gachon.caregiver.connect_server_data;
 import com.gachon.caregiver.parents_main;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,12 +32,11 @@ import android.widget.Toast;
 public class LoginPage extends AppCompatActivity {
     SignInButton Google_Login;
     private static final int RC_SIGN_IN = 1000;
-    private FirebaseAuth mAuth;
-    private GoogleApiClient mGoogleApiClient;
-
+    private connect_server_data connectServerData;
     String ID;
     String PW;
     //Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,7 @@ public class LoginPage extends AppCompatActivity {
         EditText editTextID = findViewById(R.id.Login_idData);
         EditText editTextPW = findViewById(R.id.Login_passwordData);
 
+        connectServerData = new connect_server_data();
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,49 +57,7 @@ public class LoginPage extends AppCompatActivity {
                 ID = editTextID.getText().toString();
                 PW = editTextPW.getText().toString();
 
-                JSONObject requestJsonObject = new JSONObject();
-                try {
-                    requestJsonObject.put("id", ID);
-                    requestJsonObject.put("password", PW);
-                }
-                catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                // 이위까지 보내는 것을 모두 완료한 상태이다. 즉 id pw를 이제 volley를 통해 nodejs로 보낸 것이다.
-                JsonObjectRequest R_Object = new JsonObjectRequest(Request.Method.POST,"http://172.19.83.10:3000/receiv", requestJsonObject, new Response.Listener<JSONObject>() {
-
-
-                    public void onResponse(JSONObject response) {
-                        JSONArray J_JsonArray = new JSONArray();
-                        try {
-                            J_JsonArray = response.getJSONArray("results");
-                            JSONObject dataObj = J_JsonArray.getJSONObject(0);
-
-                            // if 동행자면 (서버에서 0인거 받아온다는 조건) 어떻게 서버에서 받아오는 지 모르겠음
-                            // main screen 으로 가기
-                            navigateToMainScreen_companion();
-
-                            // if 보호자면
-                            navigateToMainScreen_parents();
-
-                        } catch(JSONException e) {
-                            e.printStackTrace();
-                            // 아디비번 틀리면 틀렸다고 toast 띄우기
-                            Toast.makeText(LoginPage.this, "\"아이디 혹은 비밀번호 오류\"", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                }, new Response.ErrorListener() { //수신에서 에러가 난 경우에만 작동하는 코드이다 즉 돌아가면 ㅈ대는 거다
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "네트워크 연결 오류.", Toast.LENGTH_LONG).show();
-                        Log.i("VolleyError", "Volley Error in receiv");
-                    }
-                });
-                requestQueue.add(R_Object);
+                connectServerData.login_connect(ID,PW);
             }
         });
 

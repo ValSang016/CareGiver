@@ -131,6 +131,7 @@
     <!-- 중복 확인 버튼 -->
 
     <Button
+        android:id="@+id/check_id"
         android:layout_width="65dp"
         android:layout_height="50dp"
         android:layout_alignTop="@+id/id_write"
