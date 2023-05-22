@@ -56,10 +56,10 @@ public class LoginPage extends AppCompatActivity {
                 ID = editTextID.getText().toString();
                 PW = editTextPW.getText().toString();
 
-                JSONObject requsetJsonObject = new JSONObject();
+                JSONObject requestJsonObject = new JSONObject();
                 try {
-                    requsetJsonObject.put("id", ID);
-                    requsetJsonObject.put("password", PW);
+                    requestJsonObject.put("id", ID);
+                    requestJsonObject.put("password", PW);
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
@@ -67,7 +67,7 @@ public class LoginPage extends AppCompatActivity {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 // 이위까지 보내는 것을 모두 완료한 상태이다. 즉 id pw를 이제 volley를 통해 nodejs로 보낸 것이다.
-                JsonObjectRequest R_Object = new JsonObjectRequest(Request.Method.POST,"http://172.19.83.10:3000/receiv", requsetJsonObject, new Response.Listener<JSONObject>() {
+                JsonObjectRequest R_Object = new JsonObjectRequest(Request.Method.POST,"http://172.19.83.10:3000/receiv", requestJsonObject, new Response.Listener<JSONObject>() {
 
 
                     public void onResponse(JSONObject response) {
