@@ -14,7 +14,7 @@ import com.gachon.caregiver.userInform.loginPage.LoginPage;
 public class SignUpPage_patient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup_parent); //로그인 하는 창 등장
+        setContentView(R.layout.signup_parent); //회원가입 하는 창 등장
 
         Button next_bt = findViewById(R.id.go_to_login);
 
@@ -24,6 +24,7 @@ public class SignUpPage_patient extends AppCompatActivity {
             public void onClick(View view) {
                 Intent login = new Intent(getApplicationContext(), LoginPage.class);
                 startActivity(login);
+
             }
         });
     }

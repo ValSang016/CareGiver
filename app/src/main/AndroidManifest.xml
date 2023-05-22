@@ -7,6 +7,7 @@
 <!--        android:value="${GOOGLE_MAPS_API_KEY}" />-->
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -35,6 +36,9 @@
             android:exported="false"/>
         <activity
             android:name=".companion_main"
+            android:exported="false"/>
+        <activity
+            android:name=".parents_main"
             android:exported="false"/>
         <activity
             android:name=".MainActivity"
