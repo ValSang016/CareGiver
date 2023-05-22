@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
@@ -26,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LoginPage.class);
-                startActivity(intent);
+                try {
+                    startActivity(intent);
+                } catch(Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"병신아 오류났다",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
