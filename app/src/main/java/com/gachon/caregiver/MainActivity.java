@@ -7,8 +7,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.RequestQueue;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
+import com.google.firebase.FirebaseApp;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseApp.initializeApp(this); //firebase 초기화
 
         Button login_bt = findViewById(R.id.Main_login_button);//로그인 버튼 연결
         Button find_pw = findViewById(R.id.Main_findPw_button);//비밀번호 찾기 연결
