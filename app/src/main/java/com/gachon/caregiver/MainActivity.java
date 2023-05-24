@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
+import com.gachon.caregiver.userInform.signUpPage.SignUpPage;
 import com.google.firebase.FirebaseApp;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button login_bt = findViewById(R.id.Main_login_button);//로그인 버튼 연결
         Button find_pw = findViewById(R.id.Main_findPw_button);//비밀번호 찾기 연결
-        Button some_id = findViewById(R.id.Main_signUp_button); //회원가입 버튼 연결
+        Button signup_bt = findViewById(R.id.Main_signUp_button); //회원가입 버튼 연결
 
         login_bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
            }
         });
 
-        some_id.setOnClickListener(new View.OnClickListener(){//비밀번호 찾기 하는 곳
+        signup_bt.setOnClickListener(new View.OnClickListener(){//비밀번호 찾기 하는 곳
             @Override
             public void onClick(View View){
-//                Intent intent = new Intent(getApplicationContext(),);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), SignUpPage.class);
+                startActivity(intent);
             }
         });
     }

@@ -80,7 +80,6 @@ public class SignUpPage_companion extends AppCompatActivity {
 
                 Intent login = new Intent(getApplicationContext(), LoginPage.class);
                 startActivity(login);
-
             }
         });
     }

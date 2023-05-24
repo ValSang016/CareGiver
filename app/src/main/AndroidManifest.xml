@@ -20,26 +20,32 @@
         tools:targetApi="31">
         <activity
             android:name=".userInform.signUpPage.SignUpPage_patient"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".userInform.signUpPage.SignUpPage_companion"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".userInform.signUpPage.SignUpPage"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".userInform.loginPage.LoginPage"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".userInform.find_pw"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".companion_main"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".parents_main"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
