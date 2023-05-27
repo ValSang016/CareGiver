@@ -154,6 +154,7 @@ public class SignUpPage_companion extends AppCompatActivity {
                     }
                 });
     }
+
     ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
