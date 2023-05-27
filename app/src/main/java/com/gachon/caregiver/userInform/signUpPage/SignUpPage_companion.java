@@ -91,6 +91,7 @@ public class SignUpPage_companion extends AppCompatActivity {
                 Intent bringImg = new Intent(Intent.ACTION_PICK);
                 bringImg.setType("image/*");
 
+                //이거다
                 startActivityResult.launch(bringImg);
             }
         });
