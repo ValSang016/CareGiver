@@ -49,6 +49,8 @@ public class mapFragment extends Fragment {
             }
         });
 
+
+
         return rootView;
     }
 
@@ -100,7 +102,6 @@ public class mapFragment extends Fragment {
     }
 
     private void requestLocationPermission() {
-        // 위치 권한을 요청하는 로직을 추가
-        // ActivityCompat.requestPermissions() 등을 사용하여 위치 권한을 요청합니다.
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
     }
 }
