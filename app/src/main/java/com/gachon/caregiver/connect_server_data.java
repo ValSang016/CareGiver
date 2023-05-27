@@ -1,9 +1,5 @@
 package com.gachon.caregiver;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -74,7 +70,7 @@ public class connect_server_data extends AppCompatActivity {
         String phone = phone_number;
 
         //다시 연결 초기화해서 연결상태 비워두고 보내기 위함
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
+//        requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         //바로 밑의 코드 부분은 데이터를 포장하는 부분이다.
         JSONObject post_sign_up_data = new JSONObject();
