@@ -1,6 +1,5 @@
 package com.gachon.caregiver.userInform.signUpPage;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -78,7 +77,7 @@ public class SignUpPage_patient extends AppCompatActivity {
                 sign_up_pw = make_up_pw.getText().toString();
                 phone_number = sign_up_phone_number.getText().toString();
 
-                connectServerData.sign_up_parents_connect(name,birth,gender,sign_up_id,sign_up_pw,phone_number);
+//                connectServerData.sign_up_parents_connect(name,birth,gender,sign_up_id,sign_up_pw,phone_number);
 
                 Intent login = new Intent(getApplicationContext(), LoginPage.class);
                 startActivity(login);
