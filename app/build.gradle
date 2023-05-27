@@ -70,6 +70,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.3'
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
 
+    implementation('com.google.android.gms:play-services-maps:18.1.0')
+    implementation('com.google.android.gms:play-services-location:21.0.1')
+
+
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
 
