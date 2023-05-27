@@ -22,7 +22,7 @@ public class mainscreen_companion extends AppCompatActivity {
         callendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_cal = new Intent(getApplicationContext(),calendar_companion.class);
+                Intent go_cal = new Intent(getApplicationContext(),CalendarCompanionActivity.class);
                 startActivity(go_cal);
             }
         });
