@@ -7,14 +7,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gachon.caregiver.R;
 import com.gachon.caregiver.connect_server_data;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 public class SignUpPage_companion extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     private connect_server_data connectServerData;
     String name;
@@ -27,6 +37,8 @@ public class SignUpPage_companion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_companion);
+
+        mAuth = FirebaseAuth.getInstance();
 
 
         Button next_bt = findViewById(R.id.go_to_login); //누름과 동시에 회원가입이 승인 되고 이후 다시 로그인 창으로 넘어가서 로그인을 할 수 있게 해준다.
@@ -78,10 +90,40 @@ public class SignUpPage_companion extends AppCompatActivity {
 
                 connectServerData.sign_up_companion_connect(name,birth,gender,sign_up_id,sign_up_pw,phone_number);
 
-                Intent login = new Intent(getApplicationContext(), LoginPage.class);
-                startActivity(login);
+                signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number);  //파이어베이스 회원가입 메서드
+
+
             }
         });
+    }
+
+    private DatabaseReference mDatabase;
+    // 회원가입 버튼 클릭 시 호출되는 메서드
+    private void signUp(String email, String password, String username, String birth, String gender, String phoneNumber) {
+        Intent login = new Intent(getApplicationContext(), LoginPage.class);
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // 회원가입 성공
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String userId = user.getUid();
+                            // 추가적인 사용자 정보 저장하거나 초기화 작업
+                            UserInformation userInfo = new UserInformation(username, birth, gender, phoneNumber);
+                            mDatabase.child("users").child(userId).setValue(userInfo);
+
+                            // 회원가입 후에 다음 화면으로 이동하거나 액션이 필요한 경우에 대한 코드를 작성합니다.
+                            startActivity(login);
+
+                        } else {
+                            // 회원가입 실패
+                            Toast.makeText(SignUpPage_companion.this, "회원가입에 실패하였습니다.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
 

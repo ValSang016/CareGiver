@@ -123,7 +123,7 @@
         android:layout_marginTop="337dp"
         android:background="@drawable/stroke"
         android:elevation="4dp"
-        android:hint="아 이 디"
+        android:hint="이 메 일"
         android:textAlignment="center"
         android:textSize="20dp" />
 

@@ -14,6 +14,7 @@ import com.gachon.caregiver.companion_main;
 import com.gachon.caregiver.connect_server_data;
 import com.gachon.caregiver.parents_main;
 import com.google.android.gms.common.SignInButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginPage extends AppCompatActivity {
     SignInButton Google_Login;
@@ -23,11 +24,15 @@ public class LoginPage extends AppCompatActivity {
     String PW;
     //Context mContext;
 
+    private FirebaseAuth mAuth;
+    private static final String TAG = "EmailPassword";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_class);
+        mAuth = FirebaseAuth.getInstance(); //FirebaseAuth 인스턴스 초기화
 
         Button loginBtn = findViewById(R.id.Login_login_button);
         Button backBtn = findViewById(R.id.Login_back_button);
@@ -58,6 +63,7 @@ public class LoginPage extends AppCompatActivity {
 
 
     }
+
 
     // main screen 가는 함수
     private void navigateToMainScreen_companion() {
