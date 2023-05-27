@@ -64,42 +64,6 @@ public class connect_server_data extends AppCompatActivity {
                 });
     }
 
-    protected void sign_up_parents_connect(String name,String birth,String gender,String sign_up_id,String sign_up_pw,String phone_number){
-
-    }
-    protected void check_id_duplication(String id) {
-        String signup_id = id;
-
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        JSONObject post_login_data = new JSONObject();
-        try{
-            post_login_data.put("id",signup_id);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
-        JsonObjectRequest signup_id_request = new JsonObjectRequest(Request.Method.POST, url, post_login_data, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    // 응답 데이터 처리.. 어카지
-                    String result = response.getString("result");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // 에러 처리
-                        error.printStackTrace();
-                    }
-
-        });
-        requestQueue.add(login_requset);
-    }
 
     public void sign_up_parents_connect(String name,String birth,String gender,String sign_up_id,String sign_up_pw,String phone_number){
         String sign_name = name;
