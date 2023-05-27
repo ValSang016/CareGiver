@@ -54,7 +54,7 @@ public class mapFragment extends Fragment {
 
     private void enableMyLocation() {
         // 사용자의 위치를 표시합니다.
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -75,28 +75,28 @@ public class mapFragment extends Fragment {
                 // 위치 변경에 따른 지도 업데이트 작업을 수행
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+
+                // 상대방 위치를 표시
+                LatLng friendLocation = new LatLng(location.getLatitude(), location.getLongitude()); // 사용자의 위치 좌표
+                MarkerOptions friendMarkerOptions = new MarkerOptions()
+                        .position(friendLocation)
+                        .title("Friend's Location");
+                googleMap.addMarker(friendMarkerOptions);
+
+                // 반경 내의 특정 장소를 표시
+                LatLng centerLocation = new LatLng(location.getLatitude(), location.getLongitude()); // 사용자의 위치 좌표를 원의 중심 위치 좌표로 설정
+                float radius = 1000; // 반경(미터)
+                CircleOptions circleOptions = new CircleOptions()
+                        .center(centerLocation)
+                        .radius(radius)
+                        .strokeColor(Color.BLUE)
+                        .fillColor(Color.argb(50, 0, 0, 255));
+                googleMap.addCircle(circleOptions);
             }
 
             // onProviderEnabled(), onProviderDisabled() 등 다른 메서드도 구현
         };
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
-        // 상대방 위치를 표시
-        LatLng friendLocation = new LatLng(latitude, longitude); // 상대방 위치 좌표
-        MarkerOptions friendMarkerOptions = new MarkerOptions()
-                .position(friendLocation)
-                .title("Friend's Location");
-        googleMap.addMarker(friendMarkerOptions);
-
-        // 반경 내의 특정 장소를 표시
-        LatLng centerLocation = new LatLng(centerLatitude, centerLongitude); // 원의 중심 위치 좌표
-        float radius = 1000; // 반경(미터)
-        CircleOptions circleOptions = new CircleOptions()
-                .center(centerLocation)
-                .radius(radius)
-                .strokeColor(Color.BLUE)
-                .fillColor(Color.argb(50, 0, 0, 255));
-        googleMap.addCircle(circleOptions);
     }
 
     private void requestLocationPermission() {

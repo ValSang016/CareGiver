@@ -21,6 +21,10 @@
         android:theme="@style/Theme.Caregiver"
         tools:targetApi="31">
 
+        <uses-library
+            android:name="com.google.android.maps" />
+
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDCmmkDB0g33R5Plz-GwXVvTTlCMSVxd7k"/>
