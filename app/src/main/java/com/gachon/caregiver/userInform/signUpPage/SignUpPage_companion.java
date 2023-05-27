@@ -90,6 +90,8 @@ public class SignUpPage_companion extends AppCompatActivity {
             public void onClick(View v) {
                 Intent bringImg = new Intent(Intent.ACTION_PICK);
                 bringImg.setType("image/*");
+
+                startActivityResult.launch(bringImg);
             }
         });
 
