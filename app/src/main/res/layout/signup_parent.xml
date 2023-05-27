@@ -31,7 +31,6 @@
     <!-- 사진 선택 png -->
 
 
-    <!-- 사진 선택 버튼 -->
 
     <!-- 이름 작성 -->
 
@@ -50,6 +49,11 @@
         android:onClick="onClick"
         android:src="@drawable/signup_button"
         tools:ignore="SpeakableTextPresentCheck" />
+
+
+
+    <!-- 사진 선택 버튼 -->
+
 
     <Button
         android:id="@+id/btn_UploadPicture"
