@@ -34,7 +34,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SignUpPage_companion extends AppCompatActivity {
-
+// 송민규씨 에러를 위한 코밋
     private FirebaseAuth mAuth;
 
     private connect_server_data connectServerData;
