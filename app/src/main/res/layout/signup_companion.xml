@@ -199,6 +199,7 @@
     <!-- 인증 확인 버튼 -->
 
     <Button
+        android:id="@+id/id_check_button"
         android:layout_width="65dp"
         android:layout_height="50dp"
         android:layout_alignTop="@+id/phonenumber_write"

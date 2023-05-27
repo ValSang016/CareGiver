@@ -37,7 +37,7 @@ public class connect_server_data extends AppCompatActivity {
         }
 
         //포장한 데이터를 서버로 전송하는 부분의 코드이다.
-        JsonObjectRequest login_requset = new JsonObjectRequest(Request.Method.POST, url, post_login_data, new Response.Listener<JSONObject>() {
+        JsonObjectRequest login_request = new JsonObjectRequest(Request.Method.POST, url, post_login_data, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -57,9 +57,9 @@ public class connect_server_data extends AppCompatActivity {
                         error.printStackTrace();
                     }
 
-        });
-        requestQueue.add(login_requset);
+                });
     }
+
 
     public void sign_up_parents_connect(String name,String birth,String gender,String sign_up_id,String sign_up_pw,String phone_number){
         String sign_name = name;

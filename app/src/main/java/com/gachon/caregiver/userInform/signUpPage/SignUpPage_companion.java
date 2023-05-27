@@ -88,7 +88,7 @@ public class SignUpPage_companion extends AppCompatActivity {
                 sign_up_pw = make_up_pw.getText().toString();
                 phone_number = sign_up_phone_number.getText().toString();
 
-//                connectServerData.sign_up_companion_connect(name,birth,gender,sign_up_id,sign_up_pw,phone_number);
+                connectServerData.sign_up_companion_connect(name,birth,gender,sign_up_id,sign_up_pw,phone_number);
 
                 signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number);  //파이어베이스 회원가입 메서드
 
@@ -102,7 +102,8 @@ public class SignUpPage_companion extends AppCompatActivity {
     private void signUp(String email, String password, String username, String birth, String gender, String phoneNumber) {
         Intent login = new Intent(getApplicationContext(), LoginPage.class);
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
