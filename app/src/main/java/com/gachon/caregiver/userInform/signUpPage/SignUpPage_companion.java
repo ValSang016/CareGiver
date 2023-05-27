@@ -3,13 +3,10 @@ package com.gachon.caregiver.userInform.signUpPage;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
-<<<<<<<<< Temporary merge branch 1
 import android.provider.MediaStore;
-=========
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
->>>>>>>>> Temporary merge branch 2
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gachon.caregiver.R;
+import com.gachon.caregiver.connect_server_data;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,10 +36,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+
 public class SignUpPage_companion extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-
+    private connect_server_data connectServerData;
     String name;
     String birth;
     String gender;
@@ -49,14 +48,10 @@ public class SignUpPage_companion extends AppCompatActivity {
     String sign_up_pw;
     String phone_number;
 
-<<<<<<<<< Temporary merge branch 1
-
     Uri uri;
     ImageView imageView;
 
-=========
     isOkSignUP allGood = new isOkSignUP();
->>>>>>>>> Temporary merge branch 2
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_companion);
@@ -78,6 +73,8 @@ public class SignUpPage_companion extends AppCompatActivity {
         EditText make_up_pw = findViewById(R.id.password_write);
         EditText make_up_pw_r = findViewById(R.id.password_ok);
         EditText sign_up_phone_number = findViewById(R.id.phonenumber_write);
+
+        connectServerData = new connect_server_data();
 
 //      TextView valid = findViewById(R.id.validEmail);
 
@@ -147,13 +144,12 @@ public class SignUpPage_companion extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if(i==R.id.female){
-                      gender = "female";
+                    gender = "female";
                 } else if (i==R.id.male) {
-                      gender = "male";
+                    gender = "male";
                 }
             }
         });
-
         // 사진 가져오는 버튼
         selectImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,13 +181,6 @@ public class SignUpPage_companion extends AppCompatActivity {
                 sign_up_pw = make_up_pw.getText().toString();
                 phone_number = sign_up_phone_number.getText().toString();
 
-<<<<<<<<< Temporary merge branch 1
-                connectServerData.sign_up_companion_connect(name,birth,gender,sign_up_id,sign_up_pw,phone_number);
-
-                signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number);  //파이어베이스 회원가입 메서드
-
-
-=========
                 try {
                     if(allGood.okSignUp()) {
                         signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number, 0);  //파이어베이스 회원가입 메서드
@@ -203,7 +192,6 @@ public class SignUpPage_companion extends AppCompatActivity {
                     Toast.makeText(SignUpPage_companion.this, "다시 입력해주세요.",
                             Toast.LENGTH_SHORT).show();
                 }
->>>>>>>>> Temporary merge branch 2
             }
         });
     }
@@ -216,29 +204,29 @@ public class SignUpPage_companion extends AppCompatActivity {
         Intent login = new Intent(SignUpPage_companion.this, LoginPage.class);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // 회원가입 성공
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            String userId = user.getUid();
-                            // 추가적인 사용자 정보 저장하거나 초기화 작업
-                            UserInformation userInfo = new UserInformation(email, password, username, birth, gender, phoneNumber, userTP);
-                            mDatabase.child("Users").child("UID").child(userId).setValue(userInfo);
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // 회원가입 성공
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    String userId = user.getUid();
+                    // 추가적인 사용자 정보 저장하거나 초기화 작업
+                    UserInformation userInfo = new UserInformation(email, password, username, birth, gender, phoneNumber, userTP);
+                    mDatabase.child("Users").child("UID").child(userId).setValue(userInfo);
 
-                            // 회원가입 후에 다음 화면으로 이동하거나 액션이 필요한 경우에 대한 코드를 작성합니다.
-                            startActivity(login);
+                    // 회원가입 후에 다음 화면으로 이동하거나 액션이 필요한 경우에 대한 코드를 작성합니다.
+                    startActivity(login);
 
-                        } else {
-                            // 회원가입 실패
-                            Toast.makeText(SignUpPage_companion.this, "회원가입에 실패하였습니다.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                } else {
+                    // 회원가입 실패
+                    Toast.makeText(SignUpPage_companion.this, "회원가입에 실패하였습니다.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
     ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -260,4 +248,3 @@ public class SignUpPage_companion extends AppCompatActivity {
             });
 
 }
-
