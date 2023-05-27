@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!--지도-->
-<!--    <meta-data-->
-<!--        android:name="com.google.android.geo.API_KEY"-->
-<!--        android:value="${GOOGLE_MAPS_API_KEY}" />-->
+
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- 지도 위치 권한 추가 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -18,6 +20,16 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Caregiver"
         tools:targetApi="31">
+
+        <uses-library
+            android:name="com.google.android.maps" />
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDCmmkDB0g33R5Plz-GwXVvTTlCMSVxd7k"/>
+
+
         <activity
             android:name=".userInform.signUpPage.SignUpPage_patient"
             android:exported="false"

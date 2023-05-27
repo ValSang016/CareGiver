@@ -1,14 +1,22 @@
 package com.gachon.caregiver.userInform.signUpPage;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +30,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class SignUpPage_companion extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -34,6 +45,10 @@ public class SignUpPage_companion extends AppCompatActivity {
     String sign_up_pw;
     String phone_number;
 
+
+    Uri uri;
+    ImageView imageView;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_companion);
@@ -43,6 +58,8 @@ public class SignUpPage_companion extends AppCompatActivity {
 
         Button next_bt = findViewById(R.id.go_to_login); //누름과 동시에 회원가입이 승인 되고 이후 다시 로그인 창으로 넘어가서 로그인을 할 수 있게 해준다.
         Button check_id_bt = findViewById(R.id.check_id);//아이디 중복 체크 버튼
+        Button selectImageBtn = findViewById(R.id.btn_UploadPicture);//사진 가져오기
+        imageView = findViewById(R.id.user_image); //가져온 사진 보여주는 이미지뷰
 
         EditText sign_up_name = findViewById(R.id.name);
         EditText sign_up_birth = findViewById(R.id.birth);
@@ -67,6 +84,15 @@ public class SignUpPage_companion extends AppCompatActivity {
             }
         });
 
+        // 사진 가져오는 버튼
+        selectImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bringImg = new Intent(Intent.ACTION_PICK);
+                bringImg.setType("image/*");
+            }
+        });
+
         //유흔이가 만들 아이디 중복 체크에 id값만 미리 보내서 체크를 해오는 것이다. 그에 대한 결과 값에 따라 중복이면 중복이다라는 toast 아니면 사용가능하다는 토스트를 사용한다.
         check_id_bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +114,7 @@ public class SignUpPage_companion extends AppCompatActivity {
                 sign_up_pw = make_up_pw.getText().toString();
                 phone_number = sign_up_phone_number.getText().toString();
 
-//                connectServerData.sign_up_companion_connect(name,birth,gender,sign_up_id,sign_up_pw,phone_number);
+                connectServerData.sign_up_companion_connect(name,birth,gender,sign_up_id,sign_up_pw,phone_number);
 
                 signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number);  //파이어베이스 회원가입 메서드
 
@@ -102,7 +128,8 @@ public class SignUpPage_companion extends AppCompatActivity {
     private void signUp(String email, String password, String username, String birth, String gender, String phoneNumber) {
         Intent login = new Intent(getApplicationContext(), LoginPage.class);
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -124,5 +151,25 @@ public class SignUpPage_companion extends AppCompatActivity {
                     }
                 });
     }
+    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == RESULT_OK && result.getData() != null){
+                        uri = result.getData().getData();
+
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                            imageView.setImageBitmap(bitmap);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
 }
 
