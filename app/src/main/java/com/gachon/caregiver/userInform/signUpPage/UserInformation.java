@@ -2,22 +2,19 @@ package com.gachon.caregiver.userInform.signUpPage;
 
 public class UserInformation {
 
-        private String email;
-        private String pw;
         private String username;
         private String birth;
         private String gender;
         private String phoneNumber;
-        private Integer userType;
 
-    public UserInformation(String email, String pw, String username, String birth, String gender, String phoneNumber, Integer userType) {
-        this.email = email;
-        this.pw = pw;
+    public UserInformation(String username, String birth, String gender, String phoneNumber) {
         this.username = username;
         this.birth = birth;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
-        this.userType = userType;
+    }
+
+    public UserInformation(String email, String password, String username, String birth, String gender, String phoneNumber, Integer userTP) {
     }
 
     public void setBirth(String birth) {

@@ -84,7 +84,6 @@ public class SignUpPage_patient extends AppCompatActivity {
        });
 
 
-
         //유흔이가 만들 아이디 중복 체크에 id값만 미리 보내서 체크를 해오는 것이다. 그에 대한 결과 값에 따라 중복이면 중복이다라는 toast 아니면 사용가능하다는 토스트를 사용한다.
         check_id_bt.setOnClickListener(new View.OnClickListener() {
             @Override

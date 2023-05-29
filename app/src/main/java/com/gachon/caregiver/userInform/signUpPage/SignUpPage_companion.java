@@ -145,9 +145,9 @@ public class SignUpPage_companion extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if(i==R.id.female){
-                      gender = "female";
+                    gender = "female";
                 } else if (i==R.id.male) {
-                      gender = "male";
+                    gender = "male";
                 }
             }
         });
@@ -206,26 +206,26 @@ public class SignUpPage_companion extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // 회원가입 성공
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            String userId = user.getUid();
-                            // 추가적인 사용자 정보 저장하거나 초기화 작업
-                            UserInformation userInfo = new UserInformation(email, password, username, birth, gender, phoneNumber, userTP);
-                            mDatabase.child("Users").child("UID").child(userId).setValue(userInfo);
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // 회원가입 성공
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    String userId = user.getUid();
+                    // 추가적인 사용자 정보 저장하거나 초기화 작업
+                    UserInformation userInfo = new UserInformation(email, password, username, birth, gender, phoneNumber, userTP);
+                    mDatabase.child("Users").child("UID").child(userId).setValue(userInfo);
 
-                            // 회원가입 후에 다음 화면으로 이동하거나 액션이 필요한 경우에 대한 코드를 작성합니다.
-                            startActivity(login);
+                    // 회원가입 후에 다음 화면으로 이동하거나 액션이 필요한 경우에 대한 코드를 작성합니다.
+                    startActivity(login);
 
-                        } else {
-                            // 회원가입 실패
-                            Toast.makeText(SignUpPage_companion.this, "회원가입에 실패하였습니다.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                } else {
+                    // 회원가입 실패
+                    Toast.makeText(SignUpPage_companion.this, "회원가입에 실패하였습니다.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -249,4 +249,3 @@ public class SignUpPage_companion extends AppCompatActivity {
             });
 
 }
-
