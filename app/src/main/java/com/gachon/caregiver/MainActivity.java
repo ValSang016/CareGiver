@@ -12,11 +12,12 @@ import com.android.volley.RequestQueue;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
 import com.gachon.caregiver.userInform.signUpPage.SignUpPage;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
     private RequestQueue queue;
-
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
