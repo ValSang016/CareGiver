@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gachon.caregiver.R;
+import com.gachon.caregiver.userInform.loginPage.LoginPage;
 import com.gachon.caregiver.userInform.signUpPage.SignUpPage_companion;
 import com.gachon.caregiver.userInform.signUpPage.UserInformation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,13 +45,22 @@ public class find_pw extends AppCompatActivity {
         nameEditText = findViewById(R.id.input_name);
         phoneEditText = findViewById(R.id.input_tel);
         findPasswordButton = findViewById(R.id.Login_login_button);
-
+        Button back_bt = findViewById(R.id.Login_back_button);
 
         // Firebase Realtime Database에 연결
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("users");
 
         findPasswordButton.setOnClickListener(view -> findPassword());
+
+        back_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_login = new Intent(getApplicationContext(), LoginPage.class);
+                startActivity(go_login);
+            }
+        });
+
     }
 
 
