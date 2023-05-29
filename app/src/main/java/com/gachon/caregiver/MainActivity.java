@@ -17,11 +17,14 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     private RequestQueue queue;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
 
         FirebaseApp.initializeApp(this); //firebase 초기화
 
