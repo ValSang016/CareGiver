@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gachon.caregiver.R;
+import com.gachon.caregiver.mapFragment;
 
 public class mainscreen_companion extends AppCompatActivity {
     @Override
@@ -16,14 +17,35 @@ public class mainscreen_companion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainscreen_companion);
 
-        Button callendar = findViewById(R.id.callendar);
+        Button calendar = findViewById(R.id.callendar);
 
         //달력으로 이동하는 함수
-        callendar.setOnClickListener(new View.OnClickListener() {
+        calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent go_cal = new Intent(getApplicationContext(),CalendarCompanionActivity.class);
                 startActivity(go_cal);
+            }
+        });
+
+        Button map = findViewById(R.id.map);
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_map = new Intent(getApplicationContext(), mapFragment.class);
+                startActivity(go_map);
+            }
+        });
+
+        Button info = findViewById(R.id.information);
+
+        //차후에 여기 무조건 user info 창 만들어서 연결해야된다 지금은 그냥 맴에 연결해둔 상태
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_info = new Intent(getApplicationContext(), mapFragment.class);
+                startActivity(go_info);
             }
         });
     }
