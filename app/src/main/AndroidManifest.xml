@@ -11,6 +11,7 @@
 
 
     <application
+        android:enableOnBackInvokedCallback="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -51,12 +52,14 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".companion_main"
+            android:name=".userInform.MainPage.mainscreen_companion"
             android:exported="false"
+            android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".parents_main"
-            android:exported="false"
+            android:name=".userInform.MainPage.mainscreen_parents"
+            android:exported="true"
+            android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".MainActivity"

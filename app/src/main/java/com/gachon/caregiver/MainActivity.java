@@ -12,15 +12,19 @@ import com.android.volley.RequestQueue;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
 import com.gachon.caregiver.userInform.signUpPage.SignUpPage;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
     private RequestQueue queue;
-
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
 
         FirebaseApp.initializeApp(this); //firebase 초기화
 

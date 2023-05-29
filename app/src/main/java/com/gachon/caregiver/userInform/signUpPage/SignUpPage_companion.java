@@ -3,8 +3,8 @@ package com.gachon.caregiver.userInform.signUpPage;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -184,7 +184,7 @@ public class SignUpPage_companion extends AppCompatActivity {
 
                 try {
                     if(allGood.okSignUp()) {
-                        signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number, 0);  //파이어베이스 회원가입 메서드
+                        signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number, "0");  //파이어베이스 회원가입 메서드
                     } else{
                         Toast.makeText(SignUpPage_companion.this, "다시 입력해주세요.",
                                 Toast.LENGTH_SHORT).show();
@@ -201,7 +201,7 @@ public class SignUpPage_companion extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     // 회원가입 버튼 클릭 시 호출되는 메서드
-    private void signUp(String email, String password, String username, String birth, String gender, String phoneNumber, Integer userTP) {
+    private void signUp(String email, String password, String username, String birth, String gender, String phoneNumber, String userTP) {
         Intent login = new Intent(SignUpPage_companion.this, LoginPage.class);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -216,9 +216,8 @@ public class SignUpPage_companion extends AppCompatActivity {
                     UserInformation userInfo = new UserInformation(email, password, username, birth, gender, phoneNumber, userTP);
                     mDatabase.child("Users").child("UID").child(userId).setValue(userInfo);
 
-                    // 회원가입 후에 다음 화면으로 이동하거나 액션이 필요한 경우에 대한 코드를 작성합니다.
+                    // 회원가입 후에 다음 화면
                     startActivity(login);
-
                 } else {
                     // 회원가입 실패
                     Toast.makeText(SignUpPage_companion.this, "회원가입에 실패하였습니다.",
@@ -239,6 +238,7 @@ public class SignUpPage_companion extends AppCompatActivity {
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageView.setImageBitmap(bitmap);
+//                            uploadImageToFirebase(uri);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e){
@@ -247,5 +247,9 @@ public class SignUpPage_companion extends AppCompatActivity {
                     }
                 }
             });
+
+//    private void uploadImageToFirebase(){
+//        StorageReference
+//    }
 
 }
