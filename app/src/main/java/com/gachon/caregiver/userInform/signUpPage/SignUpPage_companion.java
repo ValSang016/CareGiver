@@ -102,6 +102,7 @@ public class SignUpPage_companion extends AppCompatActivity {
                     allGood.setEmailGreat(false);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
