@@ -25,10 +25,10 @@
         <uses-library
             android:name="com.google.android.maps" />
 
-
+        <!-- 구글 지도 키
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDCmmkDB0g33R5Plz-GwXVvTTlCMSVxd7k"/>
+            android:value="AIzaSyDCmmkDB0g33R5Plz-GwXVvTTlCMSVxd7k"/> -->
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -55,8 +55,9 @@
             android:name=".userInform.MainPage.CalendarCompanionActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity
-            android:name=".userInform.MainPage.mapFragment"
+            android:name=".userInform.MainPage.kakaomap"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity

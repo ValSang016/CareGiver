@@ -33,7 +33,7 @@ public class mainscreen_parents extends AppCompatActivity {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_map = new Intent(getApplicationContext(), mapFragment.class);
+                Intent go_map = new Intent(getApplicationContext(), kakaomap.class);
                 startActivity(go_map);
             }
         });
@@ -44,7 +44,7 @@ public class mainscreen_parents extends AppCompatActivity {
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_info = new Intent(getApplicationContext(), mapFragment.class);
+                Intent go_info = new Intent(getApplicationContext(), kakaomap.class);
                 startActivity(go_info);
             }
         });
