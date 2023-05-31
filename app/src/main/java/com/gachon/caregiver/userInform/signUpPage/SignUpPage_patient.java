@@ -19,7 +19,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gachon.caregiver.R;
-import com.gachon.caregiver.connect_server_data;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
 
 import java.io.FileNotFoundException;
