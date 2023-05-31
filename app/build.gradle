@@ -99,4 +99,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
+    implementation fileTree(include: ['*.jar'], dir: 'libs') // kakao api
+    implementation files('libs/libDaumMapAndroid.jar') // kakao api
+
 }
