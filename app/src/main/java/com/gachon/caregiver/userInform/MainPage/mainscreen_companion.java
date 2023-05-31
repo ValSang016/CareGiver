@@ -32,7 +32,7 @@ public class mainscreen_companion extends AppCompatActivity {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_map = new Intent(getApplicationContext(), mapFragment.class);
+                Intent go_map = new Intent(getApplicationContext(), kakaomap.class);
                 startActivity(go_map);
             }
         });
