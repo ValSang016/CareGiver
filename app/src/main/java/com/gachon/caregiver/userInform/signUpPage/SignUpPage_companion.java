@@ -2,6 +2,7 @@ package com.gachon.caregiver.userInform.signUpPage;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,7 +29,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -39,13 +42,14 @@ import java.io.IOException;
 public class SignUpPage_companion extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private connect_server_data connectServerData;
     String name;
     String birth;
     String gender;
     String sign_up_id;
     String sign_up_pw;
     String phone_number;
+
+    boolean checkEmailDuplicate = false;
 
     Uri uri;
     ImageView imageView;
@@ -73,10 +77,6 @@ public class SignUpPage_companion extends AppCompatActivity {
         EditText make_up_pw_r = findViewById(R.id.password_ok);
         EditText sign_up_phone_number = findViewById(R.id.phonenumber_write);
 
-        connectServerData = new connect_server_data();
-
-//      TextView valid = findViewById(R.id.validEmail);
-
         //이메일이 양식에 맞게 작성되는지
         make_up_id.addTextChangedListener(new TextWatcher() {
             SignUpChecking checking = new SignUpChecking();
@@ -90,14 +90,15 @@ public class SignUpPage_companion extends AppCompatActivity {
                 String emailNeedToCheck = make_up_id.getText().toString();
                 //아직은 안됨
                 if(checking.isEmailValid(emailNeedToCheck)){
-                    Toast.makeText(SignUpPage_companion.this, "이메일 양식이 적절합니다.",
-                            Toast.LENGTH_SHORT).show();
+                    make_up_id.setTextColor(Color.GREEN);
+
+//                    Toast.makeText(SignUpPage_companion.this, "이메일 양식이 적절합니다.",
+//                            Toast.LENGTH_SHORT).show();
                     allGood.setEmailGreat(true);
                 } else {
-//                    validEmail.setText("이메일 양식이 부적적합니다");
-//                    validEmail.setTextColor(Color.RED);
-                    Toast.makeText(SignUpPage_companion.this, "이메일 양식이 부적절합니다.",
-                            Toast.LENGTH_SHORT).show();
+                    make_up_id.setTextColor(Color.RED);
+//                    Toast.makeText(SignUpPage_companion.this, "이메일 양식이 부적절합니다.",
+//                            Toast.LENGTH_SHORT).show();
                     allGood.setEmailGreat(false);
                 }
             }
@@ -108,8 +109,43 @@ public class SignUpPage_companion extends AppCompatActivity {
             }
         });
 
+        check_id_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String emailNeedToCheck = make_up_id.getText().toString();
+                checkDuplicateEmail(emailNeedToCheck); // 이메일 중복 확인 메서드
+            }
+        });
 
 
+        make_up_pw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                SignUpChecking checking = new SignUpChecking();
+
+                String ps1 = make_up_pw.getText().toString();
+                String ps2 = make_up_pw_r.getText().toString();
+                if(checking.isPasswordConfirmed(ps1, ps2)){
+                    make_up_pw.setTextColor(Color.GREEN);
+                    make_up_pw_r.setTextColor(Color.GREEN);
+                    allGood.setPwGreat(true);
+                } else {
+                    make_up_pw.setTextColor(Color.RED);
+                    make_up_pw_r.setTextColor(Color.RED);
+                    allGood.setPwGreat(false);
+                }
+            }
+        });
         make_up_pw_r.addTextChangedListener(new TextWatcher() {
             SignUpChecking checking = new SignUpChecking();
 
@@ -127,12 +163,12 @@ public class SignUpPage_companion extends AppCompatActivity {
                 String ps1 = make_up_pw.getText().toString();
                 String ps2 = make_up_pw_r.getText().toString();
                 if(checking.isPasswordConfirmed(ps1, ps2)){
-                    Toast.makeText(SignUpPage_companion.this, "비밀번호가 일치합니다.",
-                            Toast.LENGTH_SHORT).show();
+                    make_up_pw.setTextColor(Color.GREEN);
+                    make_up_pw_r.setTextColor(Color.GREEN);
                     allGood.setPwGreat(true);
                 } else {
-                    Toast.makeText(SignUpPage_companion.this, "비밀번호가 일치하지 않습니다.",
-                            Toast.LENGTH_SHORT).show();
+                    make_up_pw.setTextColor(Color.RED);
+                    make_up_pw_r.setTextColor(Color.RED);
                     allGood.setPwGreat(false);
                 }
             }
@@ -162,13 +198,6 @@ public class SignUpPage_companion extends AppCompatActivity {
             }
         });
 
-        //유흔이가 만들 아이디 중복 체크에 id값만 미리 보내서 체크를 해오는 것이다. 그에 대한 결과 값에 따라 중복이면 중복이다라는 toast 아니면 사용가능하다는 토스트를 사용한다.
-        check_id_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         //다음 버튼을 눌렀을 경우 다시 로그인 창으로 넘어갈 수 있게 하는 코드이다
         next_bt.setOnClickListener(new View.OnClickListener() {
@@ -182,10 +211,13 @@ public class SignUpPage_companion extends AppCompatActivity {
                 phone_number = sign_up_phone_number.getText().toString();
 
                 try {
-                    if(allGood.okSignUp()) {
+                    if(allGood.okSignUp()&&checkEmailDuplicate) {
                         signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number, "0");  //파이어베이스 회원가입 메서드
-                    } else{
-                        Toast.makeText(SignUpPage_companion.this, "다시 입력해주세요.",
+                    } else if(!allGood.okSignUp()) {
+                        Toast.makeText(SignUpPage_companion.this, "이메일 또는 비밀번호를 다시 입력해주세요.",
+                                Toast.LENGTH_SHORT).show();
+                    }else if(!checkEmailDuplicate){
+                        Toast.makeText(SignUpPage_companion.this, "이메일 중복 확인을 해주세요.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e){
@@ -251,4 +283,33 @@ public class SignUpPage_companion extends AppCompatActivity {
 //        StorageReference
 //    }
 
+    //이메일 중복 확인 메서드
+    private void checkDuplicateEmail(String email) {
+        mAuth.fetchSignInMethodsForEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                        if (task.isSuccessful()) {
+                            SignInMethodQueryResult result = task.getResult();
+                            if (result != null && result.getSignInMethods() != null && result.getSignInMethods().size() > 0) {
+                                // 이메일이 이미 사용 중인 경우
+                                Toast.makeText(SignUpPage_companion.this, "사용중인 이메일입니다. 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // 이메일이 사용 가능한 경우
+                                Toast.makeText(SignUpPage_companion.this, "사용 가능한 이메일입니다.", Toast.LENGTH_SHORT).show();
+                                checkEmailDuplicate = true;
+                            }
+                        } else {
+                            // 오류 발생
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                // Firebase 사용자 충돌 오류 (이메일이 이미 사용 중인 경우)
+                                Toast.makeText(SignUpPage_companion.this, "사용중인 이메일입니다. 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // 기타 오류
+                                Toast.makeText(SignUpPage_companion.this, "이메일 중복 확인에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+    }
 }

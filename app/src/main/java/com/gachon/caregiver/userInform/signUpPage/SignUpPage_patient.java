@@ -26,7 +26,6 @@ import java.io.IOException;
 
 public class SignUpPage_patient extends AppCompatActivity {
 
-    private connect_server_data connectServerData;
     String name;
     String birth;
     String gender;
@@ -55,7 +54,6 @@ public class SignUpPage_patient extends AppCompatActivity {
         EditText make_up_pw = findViewById(R.id.password_write);
         EditText sign_up_phone_number = findViewById(R.id.phonenumber_write);
 
-        connectServerData = new connect_server_data();
 
         //성별 체크후 성별 보내주는 곳
         check_gender_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -132,5 +130,4 @@ public class SignUpPage_patient extends AppCompatActivity {
                     }
                 }
             });
-
 }
