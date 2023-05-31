@@ -32,18 +32,18 @@ public class mainscreen_companion extends AppCompatActivity {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_map = new Intent(getApplicationContext(), kakaomap.class);
+                Intent go_map = new Intent(getApplicationContext(), mapFragment.class);
                 startActivity(go_map);
             }
         });
 
         Button info = findViewById(R.id.information);
 
-        //차후에 여기 무조건 user info 창 만들어서 연결해야된다 지금은 그냥 맵에 연결해둔 상태
+        //차후에 여기 무조건 user info 창 만들어서 연결해야된다 지금은 그냥 맴에 연결해둔 상태
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_info = new Intent(getApplicationContext(), kakaomap.class);
+                Intent go_info = new Intent(getApplicationContext(), userInfoPage.class);
                 startActivity(go_info);
             }
         });
