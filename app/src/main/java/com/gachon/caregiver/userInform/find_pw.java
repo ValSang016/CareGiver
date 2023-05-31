@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gachon.caregiver.MainActivity;
 import com.gachon.caregiver.R;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
 import com.gachon.caregiver.userInform.signUpPage.SignUpPage_companion;
@@ -39,7 +40,7 @@ public class find_pw extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.find_password);
 
         idEditText = findViewById(R.id.input_id);
         nameEditText = findViewById(R.id.input_name);
@@ -56,7 +57,7 @@ public class find_pw extends AppCompatActivity {
         back_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_login = new Intent(getApplicationContext(), LoginPage.class);
+                Intent go_login = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(go_login);
             }
         });
@@ -72,7 +73,7 @@ public class find_pw extends AppCompatActivity {
         Query query = databaseReference.orderByChild("id").equalTo(id);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
-            //비밀번호 관련 데이터 처리하는 곳인듯
+            //비밀번호 관련 데이터 처리하는 곳이야
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 boolean found = false;
                 String password = "";

@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gachon.caregiver.R;
-import com.gachon.caregiver.mapFragment;
 
 public class mainscreen_companion extends AppCompatActivity {
     @Override

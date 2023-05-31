@@ -49,16 +49,16 @@ public class MainActivity extends AppCompatActivity {
         find_pw.setOnClickListener(new View.OnClickListener(){ //비밀번호 찾기 하는 곳
             @Override
            public void onClick(View View){
-               Intent intent = new Intent(getApplicationContext(),find_pw.class);
-               startActivity(intent);
+               Intent find = new Intent(getApplicationContext(),com.gachon.caregiver.userInform.find_pw.class);
+               startActivity(find);
            }
         });
 
         signup_bt.setOnClickListener(new View.OnClickListener(){//비밀번호 찾기 하는 곳
             @Override
             public void onClick(View View){
-                Intent intent = new Intent(getApplicationContext(), SignUpPage.class);
-                startActivity(intent);
+                Intent sign = new Intent(getApplicationContext(), SignUpPage.class);
+                startActivity(sign);
             }
         });
     }

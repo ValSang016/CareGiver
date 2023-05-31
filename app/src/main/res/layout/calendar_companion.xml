@@ -29,7 +29,7 @@
         android:text="@string/caregiver_"
         android:textAppearance="@style/caregiver_mini"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="49dp"
+        tools:layout_editor_absoluteX="58dp"
         tools:layout_editor_absoluteY="29dp" />
 
     <CalendarView

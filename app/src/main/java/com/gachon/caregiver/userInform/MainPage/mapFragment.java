@@ -1,4 +1,4 @@
-package com.gachon.caregiver;
+package com.gachon.caregiver.userInform.MainPage;
 
 import android.Manifest;
 import android.content.Context;
@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.gachon.caregiver.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;

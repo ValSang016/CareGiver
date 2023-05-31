@@ -48,6 +48,14 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
+            android:name=".userInform.MainPage.CalendarCompanionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".userInform.MainPage.mapFragment"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
             android:name=".userInform.find_pw"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
