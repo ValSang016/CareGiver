@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
+import com.gachon.caregiver.userInform.find_pw;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
 import com.gachon.caregiver.userInform.signUpPage.SignUpPage;
 import com.google.firebase.FirebaseApp;
@@ -48,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         find_pw.setOnClickListener(new View.OnClickListener(){ //비밀번호 찾기 하는 곳
             @Override
            public void onClick(View View){
-//               Intent intent = new Intent(getApplicationContext(),);
-//               startActivity(intent);
+               Intent intent = new Intent(getApplicationContext(),find_pw.class);
+               startActivity(intent);
            }
         });
 
