@@ -30,6 +30,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDCmmkDB0g33R5Plz-GwXVvTTlCMSVxd7k"/>
 
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="947164305c6b056fd75ce6d8be40fa55"/>
+
 
         <activity
             android:name=".userInform.signUpPage.SignUpPage_patient"
