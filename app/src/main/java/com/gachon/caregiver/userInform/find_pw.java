@@ -50,7 +50,7 @@ public class find_pw extends AppCompatActivity {
 
         // Firebase Realtime Database에 연결
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("users");
+        databaseReference = firebaseDatabase.getReference("Users");
 
         findPasswordButton.setOnClickListener(view -> findPassword());
 
@@ -70,27 +70,33 @@ public class find_pw extends AppCompatActivity {
         String name = nameEditText.getText().toString().trim();
         String phone = phoneEditText.getText().toString().trim();
 
-        Query query = databaseReference.orderByChild("id").equalTo(id);
+        Query query = databaseReference.orderByChild("UID").equalTo(id);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            //비밀번호 관련 데이터 처리하는 곳이야
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 boolean found = false;
                 String password = "";
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    UserInformation userInfo = snapshot.getValue(UserInformation.class);
-                    if (userInfo != null && userInfo.getUsername().equals(name) && userInfo.getPhoneNumber().equals(phone)) {
+                    String email = snapshot.child("email").getValue(String.class);
+                    String username = snapshot.child("username").getValue(String.class);
+                    String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
+
+                    if (username != null && username.equals(name) && phoneNumber != null && phoneNumber.equals(phone)) {
                         found = true;
-                        password = userInfo.getPassword();
+                        password = snapshot.child("password").getValue(String.class);
+                        break;
+                    }
+                    else if (email != null && email.equals(id)) {
+                        found = true;
+                        password = snapshot.child("password").getValue(String.class);
                         break;
                     }
                 }
 
                 if (found) {
-                    Toast.makeText(find_pw.this,"비밀번호: " + password,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(find_pw.this, "비밀번호: " + password, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(find_pw.this,"일치하는 정보를 찾을 수 없습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(find_pw.this, "일치하는 정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -100,4 +106,5 @@ public class find_pw extends AppCompatActivity {
             }
         });
     }
+
 }
