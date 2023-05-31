@@ -23,7 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gachon.caregiver.R;
-import com.gachon.caregiver.connect_server_data;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
