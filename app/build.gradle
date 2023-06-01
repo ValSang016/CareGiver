@@ -89,7 +89,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.2.2'
     implementation 'com.google.firebase:firebase-firestore:20.2.2'
     implementation 'com.google.firebase:firebase-storage:20.2.0'
-    implementation files('src\\main\\jniLibs\\libDaumMapAndroid.jar')
+    implementation files('libs/libDaumMapAndroid.jar')
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
 
