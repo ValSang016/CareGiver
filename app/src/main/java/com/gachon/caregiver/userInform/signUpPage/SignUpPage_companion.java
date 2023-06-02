@@ -47,8 +47,6 @@ import java.util.concurrent.TimeUnit;
 public class SignUpPage_companion extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    public PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-    private String mVerificationId;
     String name;
     String birth;
     String gender;
@@ -57,12 +55,12 @@ public class SignUpPage_companion extends AppCompatActivity {
     String phone_number;
 
     boolean checkEmailDuplicate = false;
-    boolean checkPhoneNum = false;
 
     Uri uri;
     ImageView imageView;
 
     isOkSignUP allGood = new isOkSignUP();
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_companion);
@@ -73,7 +71,6 @@ public class SignUpPage_companion extends AppCompatActivity {
         Button next_bt = findViewById(R.id.go_to_login); //누름과 동시에 회원가입이 승인 되고 이후 다시 로그인 창으로 넘어가서 로그인을 할 수 있게 해준다.
         Button check_id_bt = findViewById(R.id.check_id);//아이디 중복 체크 버튼
         Button selectImageBtn = findViewById(R.id.btn_UploadPicture);//사진 가져오기
-        Button certifyingBtn = findViewById(R.id.certifying_button); //전화번호 인증버트
         imageView = findViewById(R.id.user_image); //가져온 사진 보여주는 이미지뷰
 
         EditText sign_up_name = findViewById(R.id.name);
@@ -100,14 +97,9 @@ public class SignUpPage_companion extends AppCompatActivity {
                 //아직은 안됨
                 if(checking.isEmailValid(emailNeedToCheck)){
                     make_up_id.setTextColor(Color.GREEN);
-
-//                    Toast.makeText(SignUpPage_companion.this, "이메일 양식이 적절합니다.",
-//                            Toast.LENGTH_SHORT).show();
                     allGood.setEmailGreat(true);
                 } else {
                     make_up_id.setTextColor(Color.RED);
-//                    Toast.makeText(SignUpPage_companion.this, "이메일 양식이 부적절합니다.",
-//                            Toast.LENGTH_SHORT).show();
                     allGood.setEmailGreat(false);
                 }
             }
@@ -208,14 +200,6 @@ public class SignUpPage_companion extends AppCompatActivity {
         });
 
 
-        certifyingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String phoneNumber = sign_up_phone_number.getText().toString();
-                sendVerificationCode(phoneNumber);
-            }
-        });
-
         //다음 버튼을 눌렀을 경우 다시 로그인 창으로 넘어갈 수 있게 하는 코드이다
         next_bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,14 +240,20 @@ public class SignUpPage_companion extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d("isSuccessful", "NO?");
                 if (task.isSuccessful()) {
+                    Log.d("isSuccessful", "Yes");
                     // 회원가입 성공
                     FirebaseUser user = mAuth.getCurrentUser();
-                    String userId = user.getUid();
+                    String userUID = user.getUid();
                     // 추가적인 사용자 정보 저장하거나 초기화 작업
                     UserInformation userInfo = new UserInformation(email, password, username, birth, gender, phoneNumber, userTP);
-                    mDatabase.child("Users").child("UID").child(userId).setValue(userInfo);
-
+                    try {
+                        mDatabase.child("users").child("UID").child(userUID).setValue(userInfo);
+                        Log.d("idStorage", email);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                     // 회원가입 후에 다음 화면
                     startActivity(login);
                 } else {
@@ -282,7 +272,6 @@ public class SignUpPage_companion extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == RESULT_OK && result.getData() != null){
                         uri = result.getData().getData();
-
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageView.setImageBitmap(bitmap);
@@ -295,10 +284,6 @@ public class SignUpPage_companion extends AppCompatActivity {
                     }
                 }
             });
-
-//    private void uploadImageToFirebase(){
-//        StorageReference
-//    }
 
     //이메일 중복 확인 메서드
     private void checkDuplicateEmail(String email) {
@@ -329,44 +314,4 @@ public class SignUpPage_companion extends AppCompatActivity {
                     }
                 });
     }
-
-
-
-
-    private void sendVerificationCode(String phoneNumber) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,
-                120, // 인증번호 만료 시간 (초 단위)
-                TimeUnit.SECONDS,
-                this,
-                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                    @Override
-                    public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                        // 자동 인증이 완료된 경우
-                        // 인증번호 입력 액티비티로 이동
-                        Intent intent = new Intent(SignUpPage_companion.this, certifyingPhNum.class);
-                        intent.putExtra("credential", phoneAuthCredential);
-                        startActivityForResult(intent, 3000);
-                    }
-
-                    @Override
-                    public void onVerificationFailed(FirebaseException e) {
-                        // 인증이 실패한 경우
-                        Toast.makeText(SignUpPage_companion.this, "인증번호 전송에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        // 인증번호가 성공적으로 전송된 경우
-                        // 인증번호 입력 액티비티로 이동
-                        Log.d("certifying", "onCodeSend");
-                        Intent intent = new Intent(SignUpPage_companion.this, certifyingPhNum.class);
-                        intent.putExtra("verificationId", verificationId);
-                        intent.putExtra("forceResendingToken", forceResendingToken);
-                        startActivityForResult(intent, 3000);
-                    }
-                }
-        );
-    }
-
 }

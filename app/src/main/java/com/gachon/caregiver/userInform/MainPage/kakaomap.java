@@ -24,10 +24,10 @@ public class kakaomap extends AppCompatActivity implements MapView.CurrentLocati
 
     private static final String LOG_TAG = "KakaomapActivity";
     private MapView mMapView;
+    private String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
-    private String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,6 @@ public class kakaomap extends AppCompatActivity implements MapView.CurrentLocati
         setContentView(R.layout.map);
 
         mMapView = (MapView) findViewById(R.id.map_View);
-        //mMapView.setDaumMapApiKey(MapApiConst.DAUM_MAPS_ANDROID_APP_API_KEY);
         mMapView.setCurrentLocationEventListener(this);
 
         if (!checkLocationServicesStatus()) {

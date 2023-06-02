@@ -19,7 +19,11 @@ public class UserInformation {
             this.phoneNumber = phoneNumber;
             this.userTP = userTP;
         }
-        public String getEmail() {
+
+    public UserInformation() {
+    }
+
+    public String getEmail() {
             return email;
         }
 

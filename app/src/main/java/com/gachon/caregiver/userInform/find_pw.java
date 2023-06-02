@@ -29,11 +29,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class find_pw extends AppCompatActivity {
 
-    private EditText idEditText;
-    private EditText nameEditText;
-    private EditText phoneEditText;
+    public EditText idEditText;
+    public EditText nameEditText;
+    public EditText phoneEditText;
     private Button findPasswordButton;
 
     private DatabaseReference databaseReference;
@@ -50,9 +53,17 @@ public class find_pw extends AppCompatActivity {
 
         // Firebase Realtime Database에 연결
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Users");
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
-        findPasswordButton.setOnClickListener(view -> findPassword());
+        findPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = idEditText.getText().toString();
+                String phone = phoneEditText.getText().toString();
+                String name = nameEditText.getText().toString();
+                readUserEmails();
+            }
+        });
 
         back_bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,48 +74,100 @@ public class find_pw extends AppCompatActivity {
         });
 
     }
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    boolean userFound = false;
 
-    private void findPassword() {
-        String id = idEditText.getText().toString().trim();
-        String name = nameEditText.getText().toString().trim();
-        String phone = phoneEditText.getText().toString().trim();
+    // 사용자 이메일 주소를 저장할 List
+    private List<String> userEmailList = new ArrayList<>();
 
-        Query query = databaseReference.orderByChild("UID").equalTo(id);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                boolean found = false;
-                String password = "";
+    // 입력한 이메일
+    private String inputEmail = "작성한 이메일";
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String email = snapshot.child("email").getValue(String.class);
-                    String username = snapshot.child("username").getValue(String.class);
-                    String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
+    // 사용자 이메일 주소를 읽는 메서드
+    public void readUserEmails() {
+        DatabaseReference usersRef = database.getReference("users/UID");
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String userId = userSnapshot.getKey();
+                    DatabaseReference emailRef = userSnapshot.child("email").getRef();
+                    emailRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String email = dataSnapshot.getValue(String.class);
+                            // 읽어온 이메일 주소 사용
+                            if (email != null) {
+                                // 이메일 주소가 유효한 경우
+                                userEmailList.add(email);
+                                // 이메일 주소와 입력한 이메일이 일치하는지 확인
+                                if (email.equals(inputEmail)) {
+                                    // 일치하는 이메일을 가진 사용자의 비밀번호 제공
+                                    DatabaseReference passwordRef = userSnapshot.child("password").getRef();
+                                    passwordRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            String password = dataSnapshot.getValue(String.class);
+                                            if (password != null) {
+                                                // 비밀번호가 유효한 경우
+                                                providePassword(userId, password);
+                                            } else {
+                                                // 비밀번호가 없는 경우
+                                                handleNoPassword();
+                                            }
+                                        }
 
-                    if (username != null && username.equals(name) && phoneNumber != null && phoneNumber.equals(phone)) {
-                        found = true;
-                        password = snapshot.child("password").getValue(String.class);
-                        break;
-                    }
-                    else if (email != null && email.equals(id)) {
-                        found = true;
-                        password = snapshot.child("password").getValue(String.class);
-                        break;
-                    }
-                }
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            // 데이터 읽기가 취소되었거나 실패한 경우
+                                            // TODO: 오류 처리
+                                        }
+                                    });
+                                }
+                            }
+                            // 모든 사용자의 이메일 주소를 읽었는지 확인
+                            if (userEmailList.size() == dataSnapshot.getChildrenCount()) {
+                                // 모든 사용자의 이메일 주소를 읽었으므로 작업 수행
+                                handleEmailComparison();
+                            }
+                        }
 
-                if (found) {
-                    Toast.makeText(find_pw.this, "비밀번호: " + password, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(find_pw.this, "일치하는 정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // 데이터 읽기가 취소되었거나 실패한 경우
+                            // TODO: 오류 처리
+                        }
+                    });
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("Firebase", "Failed to read value: " + databaseError.getMessage());
+            public void onCancelled(DatabaseError databaseError) {
+                // 데이터 읽기가 취소되었거나 실패한 경우
+                // TODO: 오류 처리
             }
         });
     }
+
+    // 이메일 주소 비교 후 작업 수행
+    private void handleEmailComparison() {
+        // userEmailList에서 각 사용자의 이메일 주소를 가져와 사용
+        // TODO: 원하는 동작 수행
+    }
+
+    // 일치하는 이메일을 가진 사용자의 비밀번호 제공
+    private void providePassword(String userId, String password) {
+        // TODO: 비밀번호 제공
+        Toast.makeText(this, "User ID: " + userId + ", Password: " + password, Toast.LENGTH_SHORT).show();
+    }
+
+    // 비밀번호가 없는 경우 처리
+    private void handleNoPassword() {
+        // TODO: 비밀번호 없음 처리
+        Toast.makeText(this, "No password found for the user with the input email.", Toast.LENGTH_SHORT).show();
+    }
+
+
 
 }
