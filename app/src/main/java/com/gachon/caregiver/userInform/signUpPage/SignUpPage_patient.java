@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,15 +27,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.gachon.caregiver.R;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,7 +47,8 @@ import java.io.IOException;
 public class SignUpPage_patient extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    public PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    private DatabaseReference mDatabase;
+    private StorageReference mStorage;
     String name;
     String birth;
     String gender;
@@ -53,6 +59,7 @@ public class SignUpPage_patient extends AppCompatActivity {
     boolean checkEmailDuplicate = false;
 
     Uri uri;
+    String imageUri;
     ImageView imageView;
 
     isOkSignUP allGood = new isOkSignUP();
@@ -62,6 +69,8 @@ public class SignUpPage_patient extends AppCompatActivity {
         setContentView(R.layout.signup_parent);
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mStorage = FirebaseStorage.getInstance().getReference();
 
 
         Button next_bt = findViewById(R.id.go_to_login); //누름과 동시에 회원가입이 승인 되고 이후 다시 로그인 창으로 넘어가서 로그인을 할 수 있게 해준다.
@@ -210,7 +219,7 @@ public class SignUpPage_patient extends AppCompatActivity {
 
                 try {
                     if(allGood.okSignUp()&&checkEmailDuplicate) {
-                        signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number, "1");  //파이어베이스 회원가입 메서드
+                        uploadImageAndSignUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number, "1");  //파이어베이스 회원가입 메서드
                     } else if(!allGood.okSignUp()) {
                         Toast.makeText(SignUpPage_patient.this, "이메일 또는 비밀번호를 다시 입력해주세요.",
                                 Toast.LENGTH_SHORT).show();
@@ -227,10 +236,44 @@ public class SignUpPage_patient extends AppCompatActivity {
     }
 
 
+    // 이미지 업로드 및 회원가입 메서드
+    private void uploadImageAndSignUp(String email, String password, String username, String birth, String gender, String phoneNumber, String userTP) {
+        if (uri != null) {
+            // 이미지를 Firebase Cloud Storage에 업로드
+            StorageReference imageRef = mStorage.child("profile_images").child(email + ".jpg");
 
-    private DatabaseReference mDatabase;
+            imageRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // 업로드한 이미지의 다운로드 URL 가져오기
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            imageUri = uri.toString();
+                            // 회원가입 진행
+                            signUp(email, password, username, birth, gender, phoneNumber, userTP, imageUri);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(SignUpPage_patient.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SignUpPage_patient.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // 이미지가 선택되지 않은 경우 회원가입 진행
+            signUp(email, password, username, birth, gender, phoneNumber, "1", null);
+        }
+    }
+
     // 회원가입 버튼 클릭 시 호출되는 메서드
-    private void signUp(String email, String password, String username, String birth, String gender, String phoneNumber, String userTP) {
+    private void signUp(String email, String password, String username, String birth, String gender, String phoneNumber, String userTP, String imageUri) {
         Intent login = new Intent(SignUpPage_patient.this, LoginPage.class);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -242,8 +285,8 @@ public class SignUpPage_patient extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
                     String userUID = user.getUid();
                     // 추가적인 사용자 정보 저장하거나 초기화 작업
-                    UserInformation userInfo = new UserInformation(userUID, password, username, birth, gender, phoneNumber, userTP);
-                    mDatabase.child("Users").child("UID").child(email).setValue(userInfo);
+                    UserInformation userInfo = new UserInformation(email, password, username, birth, gender, phoneNumber, userTP, imageUri);
+                    mDatabase.child("users").child("UID").child(userUID).setValue(userInfo);
 
                     // 회원가입 후에 다음 화면
                     startActivity(login);
@@ -263,11 +306,9 @@ public class SignUpPage_patient extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == RESULT_OK && result.getData() != null){
                         uri = result.getData().getData();
-
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageView.setImageBitmap(bitmap);
-//                            uploadImageToFirebase(uri);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e){

@@ -9,6 +9,7 @@ public class UserInformation {
             private String gender;
             private String phoneNumber;
             private String userTP;
+            private String imageUrl;
 
             public UserInformation(String email, String password, String username, String birth, String gender, String phoneNumber, String userTP) {
             this.email = email;
@@ -19,6 +20,24 @@ public class UserInformation {
             this.phoneNumber = phoneNumber;
             this.userTP = userTP;
         }
+    public UserInformation(String email, String password, String username, String birth, String gender, String phoneNumber, String userTP, String imageUrl) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.birth = birth;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.userTP = userTP;
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public UserInformation() {
     }

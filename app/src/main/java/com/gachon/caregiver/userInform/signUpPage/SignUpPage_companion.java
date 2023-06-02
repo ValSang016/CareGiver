@@ -27,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.gachon.caregiver.R;
 import com.gachon.caregiver.userInform.loginPage.LoginPage;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -38,6 +40,8 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -46,7 +50,9 @@ import java.util.concurrent.TimeUnit;
 
 public class SignUpPage_companion extends AppCompatActivity {
 
+    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private StorageReference mStorage;
     String name;
     String birth;
     String gender;
@@ -57,6 +63,7 @@ public class SignUpPage_companion extends AppCompatActivity {
     boolean checkEmailDuplicate = false;
 
     Uri uri;
+    String imageUri;
     ImageView imageView;
 
     isOkSignUP allGood = new isOkSignUP();
@@ -213,7 +220,7 @@ public class SignUpPage_companion extends AppCompatActivity {
 
                 try {
                     if(allGood.okSignUp()&&checkEmailDuplicate) {
-                        signUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number, "0");  //파이어베이스 회원가입 메서드
+                        uploadImageAndSignUp(sign_up_id, sign_up_pw, name, birth, gender, phone_number, "0");  //파이어베이스 회원가입 메서드
                     } else if(!allGood.okSignUp()) {
                         Toast.makeText(SignUpPage_companion.this, "이메일 또는 비밀번호를 다시 입력해주세요.",
                                 Toast.LENGTH_SHORT).show();
@@ -229,11 +236,43 @@ public class SignUpPage_companion extends AppCompatActivity {
         });
     }
 
+    private void uploadImageAndSignUp(String email, String password, String username, String birth, String gender, String phoneNumber, String userTP) {
+        if (uri != null) {
+            // 이미지를 Firebase Cloud Storage에 업로드
+            StorageReference imageRef = mStorage.child("profile_images").child(email + ".jpg");
 
+            imageRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // 업로드한 이미지의 다운로드 URL 가져오기
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            imageUri = uri.toString();
+                            // 회원가입 진행
+                            signUp(email, password, username, birth, gender, phoneNumber, userTP, imageUri);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(SignUpPage_companion.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SignUpPage_companion.this, "이미지 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // 이미지가 선택되지 않은 경우 회원가입 진행
+            signUp(email, password, username, birth, gender, phoneNumber, "1", null);
+        }
+    }
 
-    private DatabaseReference mDatabase;
     // 회원가입 버튼 클릭 시 호출되는 메서드
-    private void signUp(String email, String password, String username, String birth, String gender, String phoneNumber, String userTP) {
+    private void signUp(String email, String password, String username, String birth, String gender, String phoneNumber, String userTP, String imageUri) {
         Intent login = new Intent(SignUpPage_companion.this, LoginPage.class);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -247,13 +286,8 @@ public class SignUpPage_companion extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
                     String userUID = user.getUid();
                     // 추가적인 사용자 정보 저장하거나 초기화 작업
-                    UserInformation userInfo = new UserInformation(email, password, username, birth, gender, phoneNumber, userTP);
-                    try {
+                    UserInformation userInfo = new UserInformation(email, password, username, birth, gender, phoneNumber, userTP, imageUri);
                         mDatabase.child("users").child("UID").child(userUID).setValue(userInfo);
-                        Log.d("idStorage", email);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
                     // 회원가입 후에 다음 화면
                     startActivity(login);
                 } else {
