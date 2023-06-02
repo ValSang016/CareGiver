@@ -43,6 +43,10 @@ public class userInfoPage extends AppCompatActivity {
                 Log.d(TAG, "onClick: upBtn : " + view.getClass().getName());
                 count++;
                 tvCount.setText(count + "");
+
+                // 버튼 비활성화
+                upBtn.setEnabled(false);
+                downBtn.setEnabled(false);
             }
         });
 
@@ -51,13 +55,11 @@ public class userInfoPage extends AppCompatActivity {
             public void onClick(View v) {
                     count--;
                     tvCount.setText(count + "");
+
+                // 버튼 비활성화
+                upBtn.setEnabled(false);
+                downBtn.setEnabled(false);
             }
         });
-
-
-        // 이제 보호자가 특정 동행인에 대해 추천 or 비추천 버튼 눌렀으면
-        // 버튼을 비활성화 하거나 안보이게 하는 코드 추가해야되는데
-        // 내가 원하는 걸 찾기 어려워서 찾은게 시간에 따라 버튼 중복 클릭이 안되게 하는 게 있는데
-        // 그거 야매로 쓰는 방법도 염두에 두는 중
     }
 }
