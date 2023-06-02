@@ -77,7 +77,6 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         // 이미 로그인된 사용자인 경우 자동으로 홈 화면으로 이동합니다.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
@@ -111,7 +110,7 @@ public class LoginPage extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String userId = user.getUid();
         Log.d("userID",userId + " is alright?");
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Users/UID");
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("users/UID");
         databaseRef.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -124,8 +123,8 @@ public class LoginPage extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 오류 처리 로직??
-
+                Toast.makeText(LoginPage.this, "로그인에 실패했습니다.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
