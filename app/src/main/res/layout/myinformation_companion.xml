@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- caregiver+ icon-->
     <ImageView
@@ -99,6 +100,8 @@
     <!-- 특이사항 작성 -->
 
 
+    <!--Back 버튼 -->
+
     <EditText
         android:id="@+id/address"
         android:layout_width="340dp"
@@ -107,30 +110,27 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="307dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="376dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="407dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="276dp"
         android:background="@drawable/stroke"
         android:elevation="4dp"
         android:gravity="center_vertical"
         android:hint="  주소 입력"
         android:textSize="20dp" />
 
-
-    <!--Back 버튼 -->
-
     <EditText
         android:id="@+id/significant"
-        android:layout_width="340dp"
-        android:layout_height="48dp"
+        android:layout_width="341dp"
+        android:layout_height="166dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="37dp"
-        android:layout_marginTop="376dp"
-        android:layout_marginEnd="34dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="472dp"
+        android:layout_marginEnd="35dp"
         android:layout_marginBottom="93dp"
         android:background="@drawable/stroke"
         android:elevation="4dp"
@@ -197,6 +197,65 @@
         </RadioButton>
 
     </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="247dp"
+        android:layout_marginBottom="395dp"
+        android:text="1"
+        android:textSize="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="310dp"
+        android:layout_marginBottom="341dp"
+        android:text="추천"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_minus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <Button
+        android:id="@+id/btn_minus"
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="220dp"
+        android:layout_marginBottom="339dp"
+        android:text="비추천"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_add" />
+
+    <ImageView
+
+        android:id="@+id/heart_rating"
+        android:layout_width="71dp"
+        android:layout_height="67dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="297dp"
+        android:layout_marginBottom="398dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/heart"
+        android:maxWidth="200dp"
+        android:maxHeight="200sp" />
 
 
 </RelativeLayout>
