@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -100,6 +101,7 @@ public class CalendarCompanionActivity extends AppCompatActivity {
                 data.put("month", store_month+1);
                 data.put("year", store_year);
 
+
                 final FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
                     databaseReference.child("calenders").child(user.getUid()).setValue(data)
@@ -142,7 +144,31 @@ public class CalendarCompanionActivity extends AppCompatActivity {
                 save_Btn.setVisibility(View.VISIBLE);
                 cha_Btn.setVisibility(View.INVISIBLE);
                 del_Btn.setVisibility(View.INVISIBLE);
-                removeDiary(readDay);
+
+                String context = "";
+
+                Map<String, Object> data = new HashMap<>();
+                data.put("context", context);
+                data.put("day", "");
+                data.put("month", "");
+                data.put("year", "");
+
+                final FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    databaseReference.child("calenders").child(user.getUid()).setValue(data)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(CalendarCompanionActivity.this, "달력이 업로드되었습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(CalendarCompanionActivity.this, "달력 업로드에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }
         });
     }
@@ -156,70 +182,66 @@ public class CalendarCompanionActivity extends AppCompatActivity {
 
         str = "";
         textView2.setVisibility(View.INVISIBLE);
-
-        firestore.collection("diaries").document(readDay)
+        final FirebaseUser user = mAuth.getCurrentUser();
+        databaseReference.child("calenders").child(user.getUid())
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
                         if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document != null && document.exists()) {
-                                String diary = document.getString("diary");
+                            DataSnapshot dataSnapshot = task.getResult();
+                            if (dataSnapshot.exists()) {
+                                String diary = dataSnapshot.child("context").getValue(String.class);
                                 str = diary;
                                 textView2.setText(diary);
+
+                                // 추가된 부분: 선택한 날짜에만 데이터를 띄우기
+                                String selectedDate = String.format("%d-%d-%d", store_year, store_month + 1, store_day);
+                                if (readDay.equals(selectedDate)) {
+                                    textView2.setVisibility(View.VISIBLE);
+                                    diaryTextView.setVisibility(View.INVISIBLE);
+                                    save_Btn.setVisibility(View.INVISIBLE);
+                                    cha_Btn.setVisibility(View.VISIBLE);
+                                    del_Btn.setVisibility(View.VISIBLE);
+                                    contextEditText.setVisibility(View.INVISIBLE);
+                                } else {
+                                    textView2.setVisibility(View.INVISIBLE);
+                                    diaryTextView.setVisibility(View.VISIBLE);
+                                    save_Btn.setVisibility(View.VISIBLE);
+                                    cha_Btn.setVisibility(View.INVISIBLE);
+                                    del_Btn.setVisibility(View.INVISIBLE);
+                                    contextEditText.setVisibility(View.VISIBLE);
+                                }
                             } else {
                                 str = "";
                                 textView2.setText("");
+
+                                // 추가된 부분: 선택한 날짜에만 데이터를 띄우지 않음
+                                textView2.setVisibility(View.INVISIBLE);
+                                diaryTextView.setVisibility(View.VISIBLE);
+                                save_Btn.setVisibility(View.VISIBLE);
+                                cha_Btn.setVisibility(View.INVISIBLE);
+                                del_Btn.setVisibility(View.INVISIBLE);
+                                contextEditText.setVisibility(View.VISIBLE);
                             }
                         } else {
                             str = "";
                             textView2.setText("");
-                        }
 
-                        if (str.isEmpty()) {
+                            // 추가된 부분: 선택한 날짜에만 데이터를 띄우지 않음
                             textView2.setVisibility(View.INVISIBLE);
                             diaryTextView.setVisibility(View.VISIBLE);
                             save_Btn.setVisibility(View.VISIBLE);
                             cha_Btn.setVisibility(View.INVISIBLE);
                             del_Btn.setVisibility(View.INVISIBLE);
                             contextEditText.setVisibility(View.VISIBLE);
-                        } else {
-                            textView2.setVisibility(View.VISIBLE);
-                            diaryTextView.setVisibility(View.INVISIBLE);
-                            save_Btn.setVisibility(View.INVISIBLE);
-                            cha_Btn.setVisibility(View.VISIBLE);
-                            del_Btn.setVisibility(View.VISIBLE);
-                            contextEditText.setVisibility(View.INVISIBLE);
                         }
+
+                        // 추가된 부분: 저장한 기록 계속 유지하기
+                        contextEditText.setText(str);
                     }
                 });
     }
 
-    public void removeDiary(String readDay) {
-        Map<String, Object> data = new HashMap<>();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        String getemail = currentUser.getEmail();
 
-        String email = getemail;
-
-        String day = String.valueOf(store_day);
-        String month = String.valueOf(store_month);
-        String year = String.valueOf(store_year);
-
-        data.put("context", str);
-        data.put("day", day);
-        data.put("email", email);
-        data.put("month", month);
-        data.put("year", year);
-
-        firestore.collection("calender").document(readDay)
-                .set(data)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(CalendarCompanionActivity.this, "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 }
