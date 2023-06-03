@@ -30,60 +30,80 @@
     <!-- 지도 버튼 -->
     <Button
         android:id="@+id/map"
-        android:layout_width="338dp"
-        android:layout_height="125dp"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="36.5dp"
-        android:layout_marginEnd="36.5dp"
-        android:layout_marginBottom="480dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="530dp"
         android:background="@drawable/signup_button"
         android:text="지도"
         android:textStyle="bold" />
     <!-- 캘린더 버튼 -->
-    <Button
-        android:id="@+id/callendar"
-        android:layout_width="338dp"
-        android:layout_height="125dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="36.5dp"
-        android:layout_marginEnd="36.5dp"
-        android:layout_marginBottom="335dp"
-        android:background="@drawable/signup_button"
-        android:text="캘린더"
-        android:textStyle="bold" />
     <!-- 내 정보 버튼 -->
 
     <Button
-        android:id="@+id/information"
-        android:layout_width="338dp"
-        android:layout_height="125dp"
+        android:id="@+id/callendar"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="36.5dp"
-        android:layout_marginEnd="36.5dp"
-        android:layout_marginBottom="187dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="430dp"
         android:background="@drawable/signup_button"
-        android:text="내 정보"
+        android:text="캘린더"
         android:textStyle="bold" />
+
     <!-- 자격증 인증 요청 버튼 -->
 
     <Button
-        android:id="@+id/add_certificate"
-        android:layout_width="338dp"
-        android:layout_height="125dp"
+        android:id="@+id/information"
+        android:layout_width="328dp"
+        android:layout_height="70dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="36.5dp"
-        android:layout_marginEnd="36.5dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="330dp"
+        android:background="@drawable/signup_button"
+        android:text="내 정보"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/add_certificate"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="36.5dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="230dp"
         android:background="@drawable/signup_button"
         android:text=" 이력 최신화 요청 "
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/matchingList"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="36.5dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="130dp"
+        android:background="@drawable/signup_button"
+        android:text="매칭 요청 목록"
         android:textStyle="bold" />
 
 
