@@ -47,5 +47,14 @@ public class mainscreen_companion extends AppCompatActivity {
                 startActivity(go_info);
             }
         });
+
+        Button certificate_apply = findViewById(R.id.add_certificate);
+        certificate_apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_cert = new Intent(getApplicationContext(), companion_certificate_btn_clicked.class);
+                startActivity(go_cert);
+            }
+        });
     }
 }

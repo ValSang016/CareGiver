@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Companion이 신청한 자격증 승인 요청 목록 표시 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="Certification Requests Scroll View">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Companion이 신청한 자격증 승인 요청 목록을 표시하는 TextView 또는 RecyclerView -->
+            <!-- 여기에 해당 목록을 동적으로 추가하면 됩니다. -->
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
