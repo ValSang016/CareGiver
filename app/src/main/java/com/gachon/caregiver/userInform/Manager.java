@@ -47,6 +47,7 @@ public class Manager extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String UID = dataSnapshot.getKey();
+                DatabaseReference emailRef = dataSnapshot.child("approval").getRef();
                 if(UID != null) {
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                         String userId = userSnapshot.getKey();
