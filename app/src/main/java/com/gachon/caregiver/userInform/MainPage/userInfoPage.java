@@ -32,7 +32,6 @@ public class userInfoPage extends AppCompatActivity {
 
         name = findViewById(R.id.name);
         old = findViewById(R.id.age);
-        address = findViewById(R.id.address);
         special = findViewById(R.id.significant);
 
         upBtn = findViewById(R.id.btn_add);
