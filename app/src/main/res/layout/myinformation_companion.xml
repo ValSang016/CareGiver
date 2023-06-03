@@ -9,8 +9,10 @@
     <ImageView
         android:layout_width="42dp"
         android:layout_height="47dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/icon"
@@ -21,8 +23,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="70dp"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="30dp"
         android:gravity="top"
@@ -38,30 +42,31 @@
         android:id="@+id/user_image"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="212dp"
-        android:layout_marginBottom="451dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="89dp"
         android:adjustViewBounds="true"
         android:maxWidth="200dp"
         android:maxHeight="200dp"
         android:onClick="onClick"
         android:src="@drawable/signup_button"
         tools:ignore="SpeakableTextPresentCheck" />
+
+
     <Button
         android:id="@+id/btn_UploadPicture"
         android:layout_width="160dp"
         android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:layout_marginEnd="213dp"
-        android:layout_marginBottom="387dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="261dp"
         android:background="@drawable/stroke"
         android:onClick="onClick"
         android:text="사진 선택"
         android:textSize="15sp" />
-
 
     <EditText
         android:id="@+id/name"
@@ -102,18 +107,17 @@
 
     <!--Back 버튼 -->
 
+
     <EditText
         android:id="@+id/address"
         android:layout_width="340dp"
         android:layout_height="48dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="407dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="276dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginLeft="37dp"
+        android:layout_marginTop="466dp"
         android:background="@drawable/stroke"
         android:elevation="4dp"
         android:gravity="center_vertical"
@@ -123,31 +127,18 @@
     <EditText
         android:id="@+id/significant"
         android:layout_width="341dp"
-        android:layout_height="175dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="472dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="529dp"
         android:background="@drawable/stroke"
         android:elevation="4dp"
         android:gravity="top|left"
         android:hint="  경 력"
         android:textSize="20dp" />
-
-
-    <Button
-        android:id="@+id/Login_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="305dp"
-        android:layout_marginBottom="18dp"
-        android:background="#000000"
-        android:text="Back"
-        android:textColor="#ffffff" />
 
 
     <!-- 성별 체크박스 -->
@@ -158,14 +149,27 @@
 
     <!-- 남자 체크 박스 -->
 
+
+    <Button
+        android:id="@+id/Login_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="653dp"
+        android:background="#000000"
+        android:text="Back"
+        android:textColor="#ffffff" />
+
     <RadioGroup
         android:id="@+id/ckkmale"
         android:layout_width="181dp"
         android:layout_height="96dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="354dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="219dp"
+        android:layout_marginTop="233dp"
         android:orientation="horizontal">
 
 
@@ -197,15 +201,28 @@
 
     </RadioGroup>
 
+    <ImageView
+
+        android:id="@+id/heart_rating"
+        android:layout_width="71dp"
+        android:layout_height="67dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="330dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/heart"
+        android:maxWidth="200dp"
+        android:maxHeight="200sp" />
 
     <TextView
         android:id="@+id/tv_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="247dp"
-        android:layout_marginBottom="395dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="320dp"
         android:text="0"
         android:textSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -218,10 +235,10 @@
         android:id="@+id/btn_add"
         android:layout_width="55dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="310dp"
-        android:layout_marginBottom="341dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="405dp"
         android:text="추천"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_minus"
@@ -232,29 +249,14 @@
         android:id="@+id/btn_minus"
         android:layout_width="67dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="220dp"
-        android:layout_marginBottom="339dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="113dp"
+        android:layout_marginTop="407dp"
         android:text="비추천"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_add" />
-
-    <ImageView
-
-        android:id="@+id/heart_rating"
-        android:layout_width="71dp"
-        android:layout_height="67dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="297dp"
-        android:layout_marginBottom="398dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/heart"
-        android:maxWidth="200dp"
-        android:maxHeight="200sp" />
 
 
 </RelativeLayout>

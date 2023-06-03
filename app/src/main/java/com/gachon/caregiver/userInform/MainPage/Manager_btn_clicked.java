@@ -6,6 +6,7 @@ import com.bumptech.glide.module.AppGlideModule;
 
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,9 @@ public class Manager_btn_clicked extends AppCompatActivity  {
     String text;
     private DatabaseReference databaseReference;
 
+    Button noBtn;
+    Button yesBtn;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manager_btn_clicked);
@@ -38,6 +42,8 @@ public class Manager_btn_clicked extends AppCompatActivity  {
 
         ImageView imageView = findViewById(R.id.imageView);
         TextView textView = findViewById(R.id.textView);
+        noBtn = findViewById(R.id.no);
+        yesBtn = findViewById(R.id.yes);
 
         Glide.with(Manager_btn_clicked.this)
                 .load(photoUrl)
