@@ -132,9 +132,11 @@ public class LoginPage extends AppCompatActivity {
         if (userTP.equals("0")) {
             // userTP가 0인 경우 Companion 화면으로 전환
              navigateToMainScreen_companion();
-        } else {
+        } else if(userTP.equals("1")){
             // userTP가 1인 경우 다른 화면으로 전환
             navigateToMainScreen_parents();
+        } else if(userTP.equals("3")){
+            navigateToMainScreen_admin();
         }
     }
 
@@ -150,6 +152,9 @@ public class LoginPage extends AppCompatActivity {
         Intent intent = new Intent(LoginPage.this, mainscreen_parents.class);
         startActivity(intent);
         finish();
+    }
+    private void navigateToMainScreen_admin(){
+
     }
 }
 
