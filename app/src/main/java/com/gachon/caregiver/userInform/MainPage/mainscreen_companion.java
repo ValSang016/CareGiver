@@ -17,6 +17,7 @@ public class mainscreen_companion extends AppCompatActivity {
         setContentView(R.layout.mainscreen_companion);
 
         Button calendar = findViewById(R.id.callendar);
+        Button matchingList = findViewById(R.id.matchingList);
 
         //달력으로 이동하는 함수
         calendar.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +54,13 @@ public class mainscreen_companion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent go_cert = new Intent(mainscreen_companion.this, companion_certificate_btn_clicked.class);
+                startActivity(go_cert);
+            }
+        });
+        matchingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_cert = new Intent(mainscreen_companion.this, matching_accept_companion.class);
                 startActivity(go_cert);
             }
         });
