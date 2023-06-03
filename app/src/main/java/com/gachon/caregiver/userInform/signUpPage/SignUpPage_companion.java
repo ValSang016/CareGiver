@@ -309,7 +309,6 @@ public class SignUpPage_companion extends AppCompatActivity {
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageView.setImageBitmap(bitmap);
-//                            uploadImageToFirebase(uri);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e){
