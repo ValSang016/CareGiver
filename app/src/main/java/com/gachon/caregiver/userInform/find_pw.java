@@ -38,6 +38,12 @@ public class find_pw extends AppCompatActivity {
     public EditText nameEditText;
     public EditText phoneEditText;
     private Button findPasswordButton;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    boolean foundName = false;
+    boolean foundPhNum = false;
+    boolean foundPW = false;
+    String getFoundPW;
 
     private DatabaseReference databaseReference;
     @SuppressLint("MissingInflatedId")
@@ -58,10 +64,11 @@ public class find_pw extends AppCompatActivity {
         findPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = idEditText.getText().toString();
-                String phone = phoneEditText.getText().toString();
-                String name = nameEditText.getText().toString();
-                readUserEmails();
+                String inputEmail = idEditText.getText().toString();
+                String inputName = nameEditText.getText().toString();
+                String inputPhNum = phoneEditText.getText().toString();
+
+                readUserEmails(inputEmail, inputName, inputPhNum);
             }
         });
 
@@ -74,24 +81,12 @@ public class find_pw extends AppCompatActivity {
         });
 
     }
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-    boolean userFound = false;
-
-    // 사용자 이메일 주소를 저장할 List
-    private List<String> userEmailList = new ArrayList<>();
-
-    // 입력한 이메일
-    private String inputEmail = "작성한 이메일";
-
-    // 사용자 이메일 주소를 읽는 메서드
-    public void readUserEmails() {
+    private void readUserEmails(String inputEmail, String inputName, String inputPhNum) {
         DatabaseReference usersRef = database.getReference("users/UID");
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    String userId = userSnapshot.getKey();
                     DatabaseReference emailRef = userSnapshot.child("email").getRef();
                     emailRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -99,37 +94,35 @@ public class find_pw extends AppCompatActivity {
                             String email = dataSnapshot.getValue(String.class);
                             // 읽어온 이메일 주소 사용
                             if (email != null) {
-                                // 이메일 주소가 유효한 경우
-                                userEmailList.add(email);
                                 // 이메일 주소와 입력한 이메일이 일치하는지 확인
                                 if (email.equals(inputEmail)) {
-                                    // 일치하는 이메일을 가진 사용자의 비밀번호 제공
+                                    DatabaseReference nameRef = userSnapshot.child("username").getRef();
+                                    DatabaseReference phNumRef = userSnapshot.child("phoneNumber").getRef();
                                     DatabaseReference passwordRef = userSnapshot.child("password").getRef();
-                                    passwordRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    nameRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            String password = dataSnapshot.getValue(String.class);
-                                            if (password != null) {
-                                                // 비밀번호가 유효한 경우
-                                                providePassword(userId, password);
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String name = snapshot.getValue(String.class);
+                                            if (name != null && name.equals(inputName)) {
+                                                // name이 작성한 정보와 일치하는 경우
+                                                foundName = true;
+                                                checkPhNum(inputPhNum, passwordRef, phNumRef);
                                             } else {
-                                                // 비밀번호가 없는 경우
-                                                handleNoPassword();
+                                                // 일치하지 않는 경우
+                                                foundName = false;
+                                                checkPhNum(inputPhNum, passwordRef, phNumRef);
                                             }
                                         }
 
                                         @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                            // 데이터 읽기가 취소되었거나 실패한 경우
-                                            // TODO: 오류 처리
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Toast.makeText(find_pw.this, "데이터를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
                                         }
                                     });
+                                }else {
+                                    Toast.makeText(find_pw.this, "이메일을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+
                                 }
-                            }
-                            // 모든 사용자의 이메일 주소를 읽었는지 확인
-                            if (userEmailList.size() == dataSnapshot.getChildrenCount()) {
-                                // 모든 사용자의 이메일 주소를 읽었으므로 작업 수행
-                                handleEmailComparison();
                             }
                         }
 
@@ -137,6 +130,7 @@ public class find_pw extends AppCompatActivity {
                         public void onCancelled(DatabaseError databaseError) {
                             // 데이터 읽기가 취소되었거나 실패한 경우
                             // TODO: 오류 처리
+                            Toast.makeText(find_pw.this, "데이터를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -146,26 +140,67 @@ public class find_pw extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 // 데이터 읽기가 취소되었거나 실패한 경우
                 // TODO: 오류 처리
+                Toast.makeText(find_pw.this, "데이터를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // 이메일 주소 비교 후 작업 수행
-    private void handleEmailComparison() {
-        // userEmailList에서 각 사용자의 이메일 주소를 가져와 사용
-        // TODO: 원하는 동작 수행
+    private void checkPhNum(String inputPhNum, DatabaseReference passwordRef, DatabaseReference phNumRef){
+        phNumRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String phNum = snapshot.getValue(String.class);
+                if (phNum != null && phNum.equals(inputPhNum)){
+                    foundPhNum = true;
+                    checkPassword(passwordRef);
+                } else {
+                    foundPhNum = false;
+                    checkPassword(passwordRef);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(find_pw.this, "데이터를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void checkPassword(DatabaseReference passwordRef) {
+        passwordRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String password = dataSnapshot.getValue(String.class);
+                if (password != null) {
+                    // 비밀번호가 유효한 경우
+                    foundPW = true;
+                    getFoundPW = password;
+                } else {
+                    // 비밀번호가 없는 경우
+                    foundPW = false;
+                }
+                providePassword(getFoundPW);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // 데이터 읽기가 취소되었거나 실패한 경우
+                Toast.makeText(find_pw.this, "데이터를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
+                providePassword(null);
+            }
+        });
     }
 
     // 일치하는 이메일을 가진 사용자의 비밀번호 제공
-    private void providePassword(String userId, String password) {
+    private void providePassword(String getFoundPW) {
         // TODO: 비밀번호 제공
-        Toast.makeText(this, "User ID: " + userId + ", Password: " + password, Toast.LENGTH_SHORT).show();
-    }
-
-    // 비밀번호가 없는 경우 처리
-    private void handleNoPassword() {
-        // TODO: 비밀번호 없음 처리
-        Toast.makeText(this, "No password found for the user with the input email.", Toast.LENGTH_SHORT).show();
+        if (foundName && foundPhNum && foundPW) {
+            Toast.makeText(this, "Password: " + getFoundPW, Toast.LENGTH_SHORT).show();
+        } else if (!foundName | !foundPhNum) {
+            Toast.makeText(this, "이름 또는 전화번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+        } else if (!foundPW) {
+            Toast.makeText(this, "비밀번호가 없습니다.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "이메일이 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
