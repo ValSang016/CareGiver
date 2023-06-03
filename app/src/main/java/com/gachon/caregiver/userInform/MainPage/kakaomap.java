@@ -229,8 +229,7 @@ public class kakaomap extends AppCompatActivity implements MapView.CurrentLocati
                     MapPoint location = MapPoint.mapPointWithGeoCoord(latitude, longitude);
 
                     MapPOIItem marker = new MapPOIItem();
-                    // 사용자 이름을 설정합니다.
-                    marker.setItemName("동행자");
+                    marker.setItemName(userId);
                     marker.setTag(1);
                     marker.setMapPoint(location);
                     marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
@@ -246,10 +245,6 @@ public class kakaomap extends AppCompatActivity implements MapView.CurrentLocati
             }
         });
     }
-
-
-
-
 
     @Override
     public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
