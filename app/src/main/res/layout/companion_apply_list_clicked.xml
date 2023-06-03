@@ -28,7 +28,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="54dp"
         android:layout_marginTop="600dp"
-        android:text="미  승  인"
+        android:text="거  부"
         android:textStyle="bold"/>
 
     <Button
