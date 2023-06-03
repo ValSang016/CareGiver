@@ -54,8 +54,8 @@ public class userInfoPage extends AppCompatActivity {
         downBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    count--;
-                    tvCount.setText(count + "");
+                count--;
+                tvCount.setText(count + "");
 
                 // 버튼 비활성화
                 upBtn.setEnabled(false);
