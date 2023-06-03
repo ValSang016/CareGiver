@@ -70,10 +70,10 @@
         android:background="@drawable/signup_button"
         android:text="내 정보"
         android:textStyle="bold" />
-    <!-- 결 제 -->
+    <!-- 매칭 신청 목록 -->
 
     <Button
-        android:id="@+id/payment"
+        android:id="@+id/match_application_list"
         android:layout_width="338dp"
         android:layout_height="125dp"
         android:layout_alignParentStart="true"
@@ -83,7 +83,7 @@
         android:layout_marginEnd="36.5dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/signup_button"
-        android:text="결 제"
+        android:text="매칭 신청 목록"
         android:textStyle="bold" />
 
 

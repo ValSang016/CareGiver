@@ -48,5 +48,14 @@ public class mainscreen_parents extends AppCompatActivity {
                 startActivity(go_info);
             }
         });
+
+        Button list = findViewById(R.id.match_application_list);
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_list = new Intent(getApplicationContext(), parents_match_apply_list.class);
+                startActivity(go_list);
+            }
+        });
     }
 }

@@ -36,18 +36,31 @@
 
     <ImageView
         android:id="@+id/user_image"
-        tools:ignore="SpeakableTextPresentCheck"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="212dp"
-        android:layout_marginBottom="477dp"
+        android:layout_marginBottom="451dp"
         android:adjustViewBounds="true"
         android:maxWidth="200dp"
         android:maxHeight="200dp"
         android:onClick="onClick"
-        android:src="@drawable/signup_button" />
+        android:src="@drawable/signup_button"
+        tools:ignore="SpeakableTextPresentCheck" />
+    <Button
+        android:id="@+id/btn_UploadPicture"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginEnd="213dp"
+        android:layout_marginBottom="387dp"
+        android:background="@drawable/stroke"
+        android:onClick="onClick"
+        android:text="사진 선택"
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/name"
