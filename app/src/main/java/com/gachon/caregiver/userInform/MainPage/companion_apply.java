@@ -50,7 +50,7 @@ public class companion_apply extends AppCompatActivity {
         certificate_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent send_apply = new Intent(getApplicationContext(), companion_certificate_btn_clicked.class);
+                Intent send_apply = new Intent(companion_apply.this, companion_certificate_btn_clicked.class);
                 startActivity(send_apply);
                 Toast.makeText(getApplicationContext(), "신청이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
             }

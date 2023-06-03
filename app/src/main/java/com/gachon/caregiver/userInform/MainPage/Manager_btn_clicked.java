@@ -1,5 +1,10 @@
 package com.gachon.caregiver.userInform.MainPage;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+
+
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Manager_btn_clicked extends AppCompatActivity {
+public class Manager_btn_clicked extends AppCompatActivity  {
     String userId;
     String photoUrl;
     String text;
@@ -34,8 +39,9 @@ public class Manager_btn_clicked extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.imageView);
         TextView textView = findViewById(R.id.textView);
 
-
-        // imgView에 이미지 표시하는 로직
+        Glide.with(Manager_btn_clicked.this)
+                .load(photoUrl)
+                .into(imageView);
 
         textView.setText(text);
 

@@ -2,6 +2,7 @@ package com.gachon.caregiver.userInform.MainPage;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -59,6 +60,16 @@ public class userInfoPage extends AppCompatActivity {
                 // 버튼 비활성화
                 upBtn.setEnabled(false);
                 downBtn.setEnabled(false);
+            }
+        });
+
+        Button back_bt = findViewById(R.id.Login_back_button);
+
+        back_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_main = new Intent(getApplicationContext(), mainscreen_companion.class);
+                startActivity(go_main);
             }
         });
     }

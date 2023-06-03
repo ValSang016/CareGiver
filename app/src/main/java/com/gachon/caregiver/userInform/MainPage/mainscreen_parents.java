@@ -44,7 +44,7 @@ public class mainscreen_parents extends AppCompatActivity {
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_info = new Intent(getApplicationContext(), kakaomap.class);
+                Intent go_info = new Intent(getApplicationContext(), userInfoPage_parents.class);
                 startActivity(go_info);
             }
         });
