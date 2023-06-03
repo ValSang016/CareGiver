@@ -49,7 +49,6 @@ public class kakaomap extends AppCompatActivity implements MapView.CurrentLocati
     private boolean isLocationUpdated = false;
 
 
-
     private boolean checkLocationServicesStatus() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -57,8 +56,6 @@ public class kakaomap extends AppCompatActivity implements MapView.CurrentLocati
                 locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) &&
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
-
-
 
 
     @Override
@@ -200,24 +197,29 @@ public class kakaomap extends AppCompatActivity implements MapView.CurrentLocati
     private void getSavedLocations() {
         final FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            DatabaseReference userLocationRef = databaseReference.child("locations").child(user.getUid());
-            userLocationRef.addValueEventListener(new ValueEventListener() {
+            DatabaseReference locationsRef = databaseReference.child("locations");
+            locationsRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        Double latitude = dataSnapshot.child("latitude").getValue(Double.class);
-                        Double longitude = dataSnapshot.child("longitude").getValue(Double.class);
+                    // Iterate over each child node under "locations"
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        String userId = userSnapshot.getKey();
+                        if (!userId.equals(user.getUid())) {
+                            // Retrieve latitude and longitude values from the user's location data
+                            Double latitude = userSnapshot.child("latitude").getValue(Double.class);
+                            Double longitude = userSnapshot.child("longitude").getValue(Double.class);
 
-                        if (latitude != null && longitude != null) {
-                            MapPOIItem marker = new MapPOIItem();
-                            marker.setItemName("Saved Location");
-                            marker.setTag(0);
-                            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
-                            marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-                            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+                            if (latitude != null && longitude != null) {
+                                // Create a marker for the user's location
+                                MapPOIItem marker = new MapPOIItem();
+                                marker.setItemName("User Location");
+                                marker.setTag(0);
+                                marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
+                                marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
 
-                            mMapView.addPOIItem(marker);
-                            mMapView.selectPOIItem(marker, true);
+                                mMapView.addPOIItem(marker);
+                                mMapView.selectPOIItem(marker, true);
+                            }
                         }
                     }
                 }
