@@ -39,12 +39,12 @@ public class sinchung extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         Button sinchung_bt = findViewById(R.id.click);
         EditText getname = findViewById(R.id.name);
         EditText getage = findViewById(R.id.age);
-        EditText getsignificant= findViewById(R.id.significant);
+        EditText getsignificant = findViewById(R.id.significant);
 
         sinchung_bt.setOnClickListener(new View.OnClickListener() {
             @Override

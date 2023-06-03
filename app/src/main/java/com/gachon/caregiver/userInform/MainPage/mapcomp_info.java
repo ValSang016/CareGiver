@@ -57,7 +57,6 @@ public class mapcomp_info extends AppCompatActivity {
                 startActivity(intent_back);
             }
         });
-
     }
 
     //리얼타임 데베가서 동행자의 userinfo를 가져와서 저장시키는 부분
