@@ -48,24 +48,35 @@ public class Manager_btn_clicked extends AppCompatActivity  {
     }
 
     private void loadUserData() {
-        // 여기에서는 예시로 'users'라는 키에 저장된 사용자 정보를 다 가져옴
-        databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+
+        databaseReference.child("users").orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // 'users' 노드의 모든 데이터 봄
+                // 해당 사용자의 데이터를 가져옴
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    // 각 사용자의 정보와 사진 URL을 가져옴
-                    userId = userSnapshot.getKey();
+                    // 각 사용자의 정보와 사진 URL, 텍스트를 가져옴
+                    userId = userSnapshot.child("userId").getValue(String.class);
                     photoUrl = userSnapshot.child("photoUrl").getValue(String.class);
                     text =  userSnapshot.child("userText").getValue(String.class);
                 }
+
+                ImageView imageView = findViewById(R.id.imageView);
+                TextView textView = findViewById(R.id.textView);
+
+                // 가져온 데이터를 UI에 반영하거나 원하는 동작을 수행합니다.
+                // 예를 들어, ImageView에 이미지를 로드하고 TextView에 텍스트를 설정하는 등의 동작을 수행할 수 있습니다.
+                Glide.with(Manager_btn_clicked.this)
+                        .load(photoUrl)
+                        .into(imageView);
+                textView.setText(text);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 데이터 로딩이 실패한 경우
+                // 데이터 로딩이 실패한 경우에 대한 처리를 여기에 작성합니다.
                 Toast.makeText(Manager_btn_clicked.this, "데이터 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }
