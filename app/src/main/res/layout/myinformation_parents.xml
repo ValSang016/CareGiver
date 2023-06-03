@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- caregiver+ icon-->
+    <ImageView
+        android:layout_width="42dp"
+        android:layout_height="47dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/icon"
+        android:clipToOutline="true" />
+
+    <!-- caregiver+ -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="30dp"
+        android:gravity="top"
+        android:text="@string/caregiver_"
+        android:textAppearance="@style/caregiver_mini" />
+
+    <!-- 사진 선택 png -->
+
+
+    <!-- 이름 작성 -->
+
+    <ImageView
+        android:id="@+id/user_image"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="212dp"
+        android:layout_marginBottom="477dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="200dp"
+        android:maxHeight="200dp"
+        android:onClick="onClick"
+        android:src="@drawable/signup_button" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="142dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="235dp"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/stroke"
+        android:elevation="4dp"
+        android:hint="이  름"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+
+    <!-- 나이 작성 -->
+
+    <EditText
+        android:id="@+id/age"
+        android:layout_width="142dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="237dp"
+        android:layout_marginTop="173dp"
+        android:background="@drawable/stroke"
+        android:elevation="4dp"
+        android:hint="나 이"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+    <!-- 주소 입력 -->
+
+
+    <!-- 특이사항 작성 -->
+
+
+    <!--Back 버튼 -->
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="407dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="276dp"
+        android:background="@drawable/stroke"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:hint="  주소 입력"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/significant"
+        android:layout_width="341dp"
+        android:layout_height="166dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="472dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="93dp"
+        android:background="@drawable/stroke"
+        android:elevation="4dp"
+        android:gravity="top|left"
+        android:hint="  특이사항"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/Login_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="305dp"
+        android:layout_marginBottom="18dp"
+        android:background="#000000"
+        android:text="Back"
+        android:textColor="#ffffff" />
+
+
+    <!-- 성별 체크박스 -->
+
+
+
+
+
+    <!-- 남자 체크 박스 -->
+
+    <RadioGroup
+        android:id="@+id/ckkmale"
+        android:layout_width="181dp"
+        android:layout_height="96dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="354dp"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="90dp"
+            android:layout_height="60sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="461dp"
+            android:text="여자"
+            android:textStyle="bold">
+
+        </RadioButton>
+
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="90dp"
+            android:layout_height="60sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="455dp"
+            android:text="남자"
+            android:textStyle="bold">
+
+        </RadioButton>
+
+    </RadioGroup>
+
+
+
+
+</RelativeLayout>
