@@ -83,8 +83,6 @@ public class companion_apply_list extends AppCompatActivity {
 
 
     private void displayUserData(List<User> userList) {
-        LinearLayout userListLayout = findViewById(R.id.user_item);
-
         for (User user : userList) {
             String approvalText;
             switch (user.getApproval()) {

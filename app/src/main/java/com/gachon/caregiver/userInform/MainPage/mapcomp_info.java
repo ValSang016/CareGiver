@@ -35,46 +35,54 @@ public class mapcomp_info extends AppCompatActivity {
         setContentView(R.layout.mapcompanion_info);
 
         mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         EditText text_name = findViewById(R.id.name);
         EditText text_age = findViewById(R.id.age);
         EditText text_significant = findViewById(R.id.significant);
 
-        getUserInfo();
+        Intent getUID = getIntent();
+        String companionUID = getUID.getStringExtra("id");
+
+        getUserInfo(companionUID);
 
         //데베에서 가져온 유저의 정보를 저장하는 부분 창에는 데베에서 가져온 정보가 뜰 것이다.
-        text_name.setText(name);
-        text_age.setText(age);
-        text_significant.setText(significant);
 
         Button application = findViewById(R.id.sinchung);
 
         application.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_back = new Intent(getApplicationContext(), sinchung.class);
-                startActivity(intent_back);
+                Intent intent_go = new Intent(getApplicationContext(), sinchung.class);
+                intent_go.putExtra("id", companionUID);
+                startActivity(intent_go);
             }
         });
     }
 
     //리얼타임 데베가서 동행자의 userinfo를 가져와서 저장시키는 부분
-    public void getUserInfo(){
+    public void getUserInfo(String companionUID){
         final FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            DatabaseReference locationsRef = databaseReference.child("sinchung");
-            locationsRef.addValueEventListener(new ValueEventListener() {
+            DatabaseReference userRef = databaseReference.child("UID");
+            userRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     // Iterate over each child node under "locations"
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                         String userId = userSnapshot.getKey();
-                        if (!userId.equals(user.getUid())) {
-
+                        if (!userId.equals(companionUID)) {
                             name = userSnapshot.child("name").getValue(String.class);
                             age = userSnapshot.child("age").getValue(String.class);
                             significant =  userSnapshot.child("significant").getValue(String.class);
+
+                            EditText text_name = findViewById(R.id.name);
+                            EditText text_age = findViewById(R.id.age);
+                            EditText text_significant = findViewById(R.id.significant);
+
+                            text_name.setText(name);
+                            text_age.setText(age);
+                            text_significant.setText(significant);
 
                         }
                     }

@@ -1,6 +1,7 @@
 package com.gachon.caregiver.userInform.MainPage;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,9 @@ public class sinchung extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sinchung);
 
+        Intent getUID = getIntent();
+        String companionUID = getUID.getStringExtra("id");
+
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
@@ -54,18 +58,21 @@ public class sinchung extends AppCompatActivity {
                 significant = getsignificant.getText().toString();
 
                 Map<String, Object> data = new HashMap<>();
+                data.put("companionUID", companionUID);
                 data.put("name", name);
                 data.put("age", age);
                 data.put("significant", significant);
                 data.put("mapping",0);
 
-                final FirebaseUser user = mAuth.getCurrentUser();
+                FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
-                    databaseReference.child("sinchung").child(user.getUid()).setValue(data)
+                    databaseReference.child("matching").child(user.getUid()).setValue(data)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(sinchung.this, "신청 업로드되었습니다.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(sinchung.this, mainscreen_parents.class);
+                                    startActivity(intent);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
