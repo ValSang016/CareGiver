@@ -41,7 +41,7 @@ public class companion_apply_list extends AppCompatActivity {
         setContentView(R.layout.companion_apply_list);
 
         // Firebase 데이터베이스 참조
-        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        databaseReference = FirebaseDatabase.getInstance().getReference("users/certificationList");
 
         // Firebase 데이터베이스에서 사용자 데이터 읽기
         readUserData();
@@ -76,13 +76,13 @@ public class companion_apply_list extends AppCompatActivity {
         for (User user : userList) {
             String approvalText;
             switch (user.getApproval()) {
-                case 0:
+                case "0":
                     approvalText = "대기중";
                     break;
-                case 1:
+                case "1":
                     approvalText = "승인됨";
                     break;
-                case 2:
+                case "2":
                     approvalText = "거부됨";
                     break;
                 default:
@@ -100,13 +100,13 @@ public class companion_apply_list extends AppCompatActivity {
     // User 클래스 예시 (사용자 데이터 구조에 맞게 수정해야 함)
     private static class User {
         private String email;
-        private int approval;
+        private String approval;
 
         public String getEmail() {
             return email;
         }
 
-        public int getApproval() {
+        public String getApproval() {
             return approval;
         }
     }
