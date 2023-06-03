@@ -39,8 +39,6 @@ public class Manager extends AppCompatActivity {
 
     // 데이터베이스에서 저장된 user id 목록을 가져오는 메소드
     private List<String> getUserIdsFromDatabase() {
-        // 여기에 데이터베이스에서 user id 목록을 가져오는 코드를 작성해주세요.
-        // 예시로 임의의 user id 목록을 반환하도록 구현했습니다.
         List<String> userIds = new ArrayList<>();
         userIds.add("user1");
         userIds.add("user2");
