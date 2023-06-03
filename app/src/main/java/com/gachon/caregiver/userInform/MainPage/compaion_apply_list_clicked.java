@@ -29,7 +29,7 @@ public class compaion_apply_list_clicked extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.companion_apply_list_clicked);
 
-        // Firebase Realtime Database의 데이터베이스 참조를 얻어옵니다.
+        // Firebase Realtime Database
         databaseReference = FirebaseDatabase.getInstance().getReference();
         // 사용자 정보와 사진 URL 불러옴
         loadUserData();
