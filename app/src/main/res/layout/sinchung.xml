@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText">
+
+    <!-- caregiver+ icon-->
+    <ImageView
+        android:layout_width="42dp"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/icon"
+        android:clipToOutline="true" />
+
+    <!-- caregiver+ -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="30dp"
+        android:gravity="top"
+        android:text="@string/caregiver_"
+        android:textAppearance="@style/caregiver_mini" />
+
+    <!-- 사진 선택 png -->
+
+
+    <!-- 이름 작성 -->
+
+    <ImageView
+        android:id="@+id/user_image"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="91dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="200dp"
+        android:maxHeight="200dp"
+        android:onClick="onClick"
+        android:src="@drawable/signup_button" />
+    //tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/btn_UploadPicture"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="267dp"
+        android:background="@drawable/stroke"
+        android:onClick="onClick"
+        android:text="사진 선택"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="142dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="235dp"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/stroke"
+        android:elevation="4dp"
+        android:hint="이  름"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+
+    <!-- 나이 작성 -->
+
+    <EditText
+        android:id="@+id/age"
+        android:layout_width="142dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="237dp"
+        android:layout_marginTop="173dp"
+        android:background="@drawable/stroke"
+        android:elevation="4dp"
+        android:hint="나 이"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+    <!-- 주소 입력 -->
+
+
+    <!-- 특이사항 작성 -->
+
+
+    <!--Back 버튼 -->
+
+
+    <!-- 성별 체크박스 -->
+
+
+
+
+
+    <!-- 남자 체크 박스 -->
+
+    <EditText
+        android:id="@+id/significant"
+        android:layout_width="341dp"
+        android:layout_height="166dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="369dp"
+        android:background="@drawable/stroke"
+        android:elevation="4dp"
+        android:gravity="top|left"
+        android:hint="  특이사항"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="171dp"
+        android:layout_marginTop="632dp"
+        android:background="#000000"
+        android:text="신 청 하 기"
+        android:textColor="#ffffff" />
+
+</RelativeLayout>
