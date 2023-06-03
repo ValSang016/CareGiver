@@ -23,7 +23,7 @@ public class userInfoPage_parents extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
-        setContentView(R.layout.myinformation_companion);
+        setContentView(R.layout.myinformation_parents);
 
         name = findViewById(R.id.name);
         old = findViewById(R.id.age);
