@@ -29,33 +29,32 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Manager extends AppCompatActivity {
 
-    private DatabaseReference databaseReference;
+    private DatabaseReference usersRef;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manager);
 
-        // Firebase Realtime Database의 데이터베이스 참조를 얻어옵니다.
-        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         getUserIdsFromDatabase();
     }
-
+    List<String> userIds = new ArrayList<>();
     // 데이터베이스에서 저장된 user id 목록을 가져오는 메소드
     private void getUserIdsFromDatabase() {
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+        usersRef = FirebaseDatabase.getInstance().getReference("users/certificationList");
 
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> userIds = new ArrayList<>();
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    String userId = userSnapshot.getKey();
-                    userIds.add(userId);
+                String UID = dataSnapshot.getKey();
+                if(UID != null) {
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        String userId = userSnapshot.getKey();
+                        userIds.add(userId);
+                    }
+                    // 가져온 user id 목록을 사용하여 동적으로 버튼을 생성합니다.
+                    createButtonsForUsers(userIds);
                 }
-
-                // 가져온 user id 목록을 사용하여 동적으로 버튼을 생성합니다.
-                createButtonsForUsers(userIds);
             }
 
             @Override
@@ -79,8 +78,8 @@ public class Manager extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent send_apply = new Intent(Manager.this, Manager_btn_clicked.class);
+                    send_apply.putExtra("id", userId);
                     startActivity(send_apply);
-                    loadUserData(userId);
                 }
             });
 
@@ -89,39 +88,7 @@ public class Manager extends AppCompatActivity {
         }
     }
 
-    // 사용자의 데이터를 로드하는 메소드
-    private void loadUserData(String userId) {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
 
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // 해당 사용자의 데이터를 가져옵니다.
-                String photoUrl = dataSnapshot.child("photoUrl").getValue(String.class);
-                String userText = dataSnapshot.child("userText").getValue(String.class);
-
-                // 가져온 데이터를 사용하여 UI를 업데이트하거나 다른 동작을 수행합니다.
-                // 예를 들어, 이미지를 로드하고 텍스트를 설정하는 등의 동작을 수행할 수 있습니다.
-                loadImage(photoUrl);
-                setText(userText);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 데이터 로딩이 실패한 경우에 대한 처리를 여기에 작성합니다.
-                Toast.makeText(Manager.this, "데이터 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    // ImageView에 이미지를 표시하는 메소드 (Glide 사용)
-    private void loadImage(String photoUrl) {
-        ImageView imageView = findViewById(R.id.imageView);
-
-        Glide.with(this)
-                .load(photoUrl)
-                .into(imageView);
-    }
 
     //TextView에 텍스트를 설정하는 메소드
     private void setText(String text) {
