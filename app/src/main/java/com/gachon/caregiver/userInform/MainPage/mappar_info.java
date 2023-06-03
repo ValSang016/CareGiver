@@ -48,13 +48,14 @@ public class mappar_info extends AppCompatActivity {
         text_name.setText(name);
         text_age.setText(age);
         text_significant.setText(significant);
+
         //수락 버튼을 눌렀을 경우의 버튼
         allow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
-                    databaseReference.child("certificationList").child(user.getUid()).child("approval").setValue(1)
+                    databaseReference.child("sinchung").child(user.getUid()).child("mapping").setValue(1)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -77,7 +78,7 @@ public class mappar_info extends AppCompatActivity {
             public void onClick(View view) {
                 final FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
-                    databaseReference.child("certificationList").child(user.getUid()).child("approval").setValue(2)
+                    databaseReference.child("sinchung").child(user.getUid()).child("mapping").setValue(2)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
