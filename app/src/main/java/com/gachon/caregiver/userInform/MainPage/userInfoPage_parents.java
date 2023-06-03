@@ -29,7 +29,6 @@ public class userInfoPage_parents extends AppCompatActivity {
 
         name = findViewById(R.id.name);
         old = findViewById(R.id.age);
-        address = findViewById(R.id.address);
         special = findViewById(R.id.significant);
         Button back_bt = findViewById(R.id.Login_back_button);
 

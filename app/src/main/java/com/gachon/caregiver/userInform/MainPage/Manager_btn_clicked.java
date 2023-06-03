@@ -5,6 +5,7 @@ import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ public class Manager_btn_clicked extends AppCompatActivity  {
     String userId;
     String photoUrl;
     String text;
+    String UID;
     private DatabaseReference databaseReference;
 
     Button noBtn;
@@ -34,6 +36,9 @@ public class Manager_btn_clicked extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manager_btn_clicked);
+
+        Intent getIn = getIntent();
+        UID = getIn.getStringExtra("id");
 
         // Firebase Realtime Database의 데이터베이스 참조를 얻어옵니다.
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -50,7 +55,6 @@ public class Manager_btn_clicked extends AppCompatActivity  {
                 .into(imageView);
 
         textView.setText(text);
-
     }
 
     private void loadUserData() {
@@ -61,7 +65,7 @@ public class Manager_btn_clicked extends AppCompatActivity  {
                 // 해당 사용자의 데이터를 가져옴
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     // 각 사용자의 정보와 사진 URL, 텍스트를 가져옴
-                    userId = userSnapshot.child("userId").getValue(String.class);
+                    userId = userSnapshot.child("id").getValue(String.class);
                     photoUrl = userSnapshot.child("photoUrl").getValue(String.class);
                     text =  userSnapshot.child("userText").getValue(String.class);
                 }
