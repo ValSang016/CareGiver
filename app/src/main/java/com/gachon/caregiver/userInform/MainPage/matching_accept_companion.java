@@ -13,5 +13,8 @@ public class matching_accept_companion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.matching_accept_companion);
 
+
+
+
     }
 }

@@ -18,6 +18,9 @@ public class mainscreen_parents extends AppCompatActivity {
         setContentView(R.layout.mainscreen_parents);
 
         Button calendar = findViewById(R.id.callendar);
+        Button map = findViewById(R.id.map);
+        Button info = findViewById(R.id.information);
+        Button list = findViewById(R.id.match_application_list);
 
         //달력으로 이동하는 함수
         calendar.setOnClickListener(new View.OnClickListener() {
@@ -28,8 +31,6 @@ public class mainscreen_parents extends AppCompatActivity {
             }
         });
 
-        Button map = findViewById(R.id.map);
-
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,8 +38,6 @@ public class mainscreen_parents extends AppCompatActivity {
                 startActivity(go_map);
             }
         });
-
-        Button info = findViewById(R.id.information);
 
         //차후에 여기 무조건 user info 창 만들어서 연결해야된다 지금은 그냥 맴에 연결해둔 상태
         info.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +48,6 @@ public class mainscreen_parents extends AppCompatActivity {
             }
         });
 
-        Button list = findViewById(R.id.match_application_list);
         list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
