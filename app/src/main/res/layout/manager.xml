@@ -10,13 +10,14 @@
         android:contentDescription="Certification Requests Scroll View">
 
         <LinearLayout
+            android:id="@+id/buttonLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Companion이 신청한 자격증 승인 요청 목록을 표시하는 TextView 또는 RecyclerView -->
-            <!-- 여기에 해당 목록을 동적으로 추가하면 됩니다. -->
+            <!-- Companion이 신청한 자격증 승인 요청 목록-->
+            <!-- 여기에 버튼이 동적으로 추가됨 -->
 
         </LinearLayout>
     </ScrollView>
