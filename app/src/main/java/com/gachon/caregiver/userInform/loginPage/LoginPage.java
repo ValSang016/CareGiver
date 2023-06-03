@@ -15,6 +15,7 @@ import com.gachon.caregiver.MainActivity;
 import com.gachon.caregiver.R;
 import com.gachon.caregiver.userInform.MainPage.mainscreen_companion;
 import com.gachon.caregiver.userInform.MainPage.mainscreen_parents;
+import com.gachon.caregiver.userInform.Manager;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -154,7 +155,9 @@ public class LoginPage extends AppCompatActivity {
         finish();
     }
     private void navigateToMainScreen_admin(){
-
+        Intent intent = new Intent(LoginPage.this, Manager.class);
+        startActivity(intent);
+        finish();
     }
 }
 
