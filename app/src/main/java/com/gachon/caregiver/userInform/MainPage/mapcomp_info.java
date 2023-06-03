@@ -1,4 +1,6 @@
 package com.gachon.caregiver.userInform.MainPage;
 
-public class mapcomp_info {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class mapcomp_info extends AppCompatActivity {
 }
