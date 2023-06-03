@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.gachon.caregiver.R;
 
 import com.gachon.caregiver.userInform.MainPage.Manager_btn_clicked;
+import com.gachon.caregiver.userInform.MainPage.companion_apply_list;
 import com.gachon.caregiver.userInform.MainPage.companion_certificate_btn_clicked;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -77,8 +78,8 @@ public class Manager extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // 버튼을 클릭했을 때의 동작을 구현합니다.
-                    // 예를 들어, 해당 사용자의 데이터를 로드하거나 다른 화면으로 이동하는 등의 동작을 수행할 수 있습니다.
+                    Intent send_apply = new Intent(Manager.this, Manager_btn_clicked.class);
+                    startActivity(send_apply);
                     loadUserData(userId);
                 }
             });
