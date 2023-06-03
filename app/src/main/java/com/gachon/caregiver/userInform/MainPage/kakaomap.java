@@ -230,7 +230,7 @@ public class kakaomap extends AppCompatActivity implements MapView.CurrentLocati
 
                     MapPOIItem marker = new MapPOIItem();
                     // 사용자 이름을 설정합니다.
-                    marker.setItemName("동행자1");
+                    marker.setItemName("동행자");
                     marker.setTag(1);
                     marker.setMapPoint(location);
                     marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
