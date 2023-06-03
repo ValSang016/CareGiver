@@ -2,6 +2,7 @@ package com.gachon.caregiver.userInform.MainPage;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gachon.caregiver.MainActivity;
 import com.gachon.caregiver.R;
 
 public class userInfoPage_parents extends AppCompatActivity {
@@ -29,7 +31,15 @@ public class userInfoPage_parents extends AppCompatActivity {
         old = findViewById(R.id.age);
         address = findViewById(R.id.address);
         special = findViewById(R.id.significant);
+        Button back_bt = findViewById(R.id.Login_back_button);
 
+        back_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_main = new Intent(getApplicationContext(), mainscreen_parents.class);
+                startActivity(go_main);
+            }
+        });
 
     }
 }
