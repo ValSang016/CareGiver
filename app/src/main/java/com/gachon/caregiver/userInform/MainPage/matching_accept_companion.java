@@ -1,7 +1,10 @@
 package com.gachon.caregiver.userInform.MainPage;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.gachon.caregiver.R;
 import com.gachon.caregiver.userInform.Manager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,30 +27,36 @@ import java.util.List;
 
 public class matching_accept_companion extends AppCompatActivity {
     private DatabaseReference usersRef;
+    private List<String> userIds;
+    private FirebaseAuth mAuth;
+    String curUID;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.matching_accept_companion);
-        getUserIdsFromDatabase();
+        mAuth = FirebaseAuth.getInstance(); //FirebaseAuth 인스턴스 초기화
+        curUID = mAuth.getUid();
+
+        userIds = new ArrayList<>();
+        getUsersFromDatabase();
     }
-    List<String> userIds = new ArrayList<>();
-    // 데이터베이스에서 저장된 user id 목록을 가져오는 메소드
-    private void getUserIdsFromDatabase() {
+
+    private void getUsersFromDatabase() {
         usersRef = FirebaseDatabase.getInstance().getReference("users/matching");
 
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String UID = dataSnapshot.getKey();
-                DatabaseReference emailRef = dataSnapshot.child("approval").getRef();
-                if(UID != null) {
-                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String companionUID = userSnapshot.child("companionUID").getValue(String.class);
+                    if (companionUID != null && companionUID.equals(curUID)) {
                         String userId = userSnapshot.getKey();
                         userIds.add(userId);
                     }
-                    // 가져온 user id 목록을 사용하여 동적으로 버튼을 생성합니다.
-                    createLayoutForUsers(userIds);
                 }
+                // 가져온 user id 목록을 사용하여 동적으로 버튼을 생성합니다.
+                createLayoutForUsers(userIds);
             }
 
             @Override
@@ -57,68 +67,37 @@ public class matching_accept_companion extends AppCompatActivity {
         });
     }
 
+
     private void createLayoutForUsers(List<String> userIds) {
+        LinearLayout buttonLayout = findViewById(R.id.buttonLayout);
 
         for (String userId : userIds) {
-            // RelativeLayout 생성
-            RelativeLayout layout = new RelativeLayout(this);
-            layout.setLayoutParams(new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT));
+            Button button = new Button(this);
+            button.setText("User: " + userId);
 
-            String userName = getUserNameFromDatabase(userId);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent send = new Intent(matching_accept_companion.this, Manager_btn_clicked.class);
+                    send.putExtra("id", userId);
+                    startActivity(send);
+                }
+            });
 
-            // 첫 번째 TextView 생성
-            TextView textView1 = new TextView(this);
-            textView1.setText("User ID: " + userName);
-            RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            params1.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            params1.addRule(RelativeLayout.ALIGN_PARENT_START);
-            layout.addView(textView1, params1);
-
-            // Button 1 생성
-            Button button1 = new Button(this);
-            button1.setText(" 수락 ");
-            RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            params3.addRule(RelativeLayout.BELOW, textView1.getId());
-            params3.addRule(RelativeLayout.ALIGN_PARENT_START);
-            layout.addView(button1, params3);
-
-            // Button 2 생성
-            Button button2 = new Button(this);
-            button2.setText(" 거절 ");
-            RelativeLayout.LayoutParams params4 = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            params4.addRule(RelativeLayout.BELOW, textView1.getId());
-            params4.addRule(RelativeLayout.RIGHT_OF, button1.getId());
-            layout.addView(button2, params4);
-
-            // Button 3 생성
-            Button button3 = new Button(this);
-            button3.setText(" 정보 보기 ");
-            RelativeLayout.LayoutParams params5 = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            params5.addRule(RelativeLayout.BELOW, textView1.getId());
-            params5.addRule(RelativeLayout.RIGHT_OF, button2.getId());
-            layout.addView(button3, params5);
-
+            // 생성한 버튼을 레이아웃에 추가합니다.
+            buttonLayout.addView(button);
         }
     }
-    private String getUserNameFromDatabase(String userId) {
-        final String[] userName = {""};
 
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/matching" + userId + "/name");
+
+    private void setUserName(String userId, TextView textView) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/matching/" + userId + "/name");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    userName[0] = dataSnapshot.getValue(String.class);
+                    String userName = dataSnapshot.getValue(String.class);
+                    textView.setText("User ID: " + userName);
                 }
             }
 
@@ -127,8 +106,5 @@ public class matching_accept_companion extends AppCompatActivity {
                 Toast.makeText(matching_accept_companion.this, "데이터 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
-
-        return userName[0];
     }
-
 }

@@ -29,8 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginPage extends AppCompatActivity {
-    SignInButton Google_Login;
-    private static final int RC_SIGN_IN = 1000;
 
     String ID;
     String PW;
