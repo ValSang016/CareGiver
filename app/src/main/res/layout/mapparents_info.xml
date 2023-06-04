@@ -53,21 +53,7 @@
         android:src="@drawable/signup_button"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <Button
-        android:id="@+id/btn_UploadPicture"
-        android:layout_width="160dp"
-        android:layout_height="48dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="267dp"
-        android:background="@drawable/stroke"
-        android:onClick="onClick"
-        android:text="사진 선택"
-        android:textSize="15sp" />
-
-    <EditText
+    <TextView
         android:id="@+id/name"
         android:layout_width="142dp"
         android:layout_height="48dp"
@@ -77,14 +63,13 @@
         android:layout_marginTop="96dp"
         android:background="@drawable/stroke"
         android:elevation="4dp"
-        android:hint="이  름"
         android:textAlignment="center"
         android:textSize="20dp" />
 
 
     <!-- 나이 작성 -->
 
-    <EditText
+    <TextView
         android:id="@+id/age"
         android:layout_width="142dp"
         android:layout_height="48dp"
@@ -94,7 +79,6 @@
         android:layout_marginTop="173dp"
         android:background="@drawable/stroke"
         android:elevation="4dp"
-        android:hint="나 이"
         android:textAlignment="center"
         android:textSize="20dp" />
 
@@ -115,7 +99,7 @@
 
     <!-- 남자 체크 박스 -->
 
-    <EditText
+    <TextView
         android:id="@+id/significant"
         android:layout_width="341dp"
         android:layout_height="166dp"
@@ -128,7 +112,6 @@
         android:background="@drawable/stroke"
         android:elevation="4dp"
         android:gravity="top|left"
-        android:hint="  특이사항"
         android:textSize="20dp" />
 
     <Button

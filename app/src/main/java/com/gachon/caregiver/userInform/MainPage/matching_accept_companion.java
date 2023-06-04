@@ -72,22 +72,38 @@ public class matching_accept_companion extends AppCompatActivity {
         LinearLayout buttonLayout = findViewById(R.id.buttonLayout);
 
         for (String userId : userIds) {
-            Button button = new Button(this);
-            button.setText("User: " + userId);
-
-            button.setOnClickListener(new View.OnClickListener() {
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users/matching/" + userId + "/name");
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent send = new Intent(matching_accept_companion.this, Manager_btn_clicked.class);
-                    send.putExtra("id", userId);
-                    startActivity(send);
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String userName = dataSnapshot.getValue(String.class);
+
+                        Button button = new Button(matching_accept_companion.this);
+                        button.setText("User: " + userName);
+
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent send = new Intent(matching_accept_companion.this, mappar_info.class);
+                                send.putExtra("id", userId);
+                                startActivity(send);
+                            }
+                        });
+
+                        // 생성한 버튼을 레이아웃에 추가합니다.
+                        buttonLayout.addView(button);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(matching_accept_companion.this, "데이터 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
             });
-
-            // 생성한 버튼을 레이아웃에 추가합니다.
-            buttonLayout.addView(button);
         }
     }
+
 
 
     private void setUserName(String userId, TextView textView) {

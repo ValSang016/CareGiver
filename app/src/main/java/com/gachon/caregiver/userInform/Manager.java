@@ -87,13 +87,4 @@ public class Manager extends AppCompatActivity {
             buttonLayout.addView(button);
         }
     }
-
-
-
-    //TextView에 텍스트를 설정하는 메소드
-    private void setText(String text) {
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(text);
-    }
-
 }
