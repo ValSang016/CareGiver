@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    //
     private RequestQueue queue;
     FirebaseAuth mAuth;
     @Override
